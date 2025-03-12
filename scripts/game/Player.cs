@@ -11,11 +11,19 @@ public partial class Player : Entity
 	[Export] float minCameraAngle = -1;
 	[Export] float maxCameraAngle = 1;
 	[Export] float mouseSensitivity = 1;
+	[Export] float coyoteTime = 0.1f;
+	[Export] float jumpBuffer = 0.1f;
+	[Export] int maxAirJumps = 1;
+	int airJumps = 0;
+	Clock groundClock;
+	Clock jumpClock;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		camera = GetNode<Camera3D>("Camera3D");
+		groundClock = AddClock(coyoteTime, 0);
+		jumpClock = AddClock(jumpBuffer, 0);
 		// TODO: handle elsewhere
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -28,20 +36,17 @@ public partial class Player : Entity
 				ChangeCameraPitch(-motion.Y);
 			}
 		}
-		// Mouse in viewport coordinates.
-		// if (@event is InputEventMouseButton eventMouseButton)
-		// 	GD.Print("Mouse Click/Unclick at: ", eventMouseButton.Position);
-		// else if (@event is InputEventMouseMotion eventMouseMotion)
-		// 	GD.Print("Mouse Motion at: ", eventMouseMotion.Position);
-
-		// // Print the size of the viewport.
-		// GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		float dt = (float)delta;
+		if(IsOnFloor()) {
+			groundClock.Reset();
+			airJumps = maxAirJumps;
+		}
 		playerInput.Poll();
+		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()) GetTree().Quit();
 		Vector3 velocity = Velocity;
 		// Vector3 rotation = Rotation;
@@ -53,9 +58,19 @@ public partial class Player : Entity
 		}
 
 		// Handle Jump.
-		if (playerInput.JumpJustPressed() && IsOnFloor())
-		{
+		// GD.Print(jumpClock.GetDuration());
+		bool shouldJump = false;
+		if(jumpClock.IsRunning()){
+			if(groundClock.IsRunning()) shouldJump = true;
+			else if(airJumps > 0){
+				airJumps--;
+				shouldJump = true;
+			}
+		}
+		if(shouldJump){
 			velocity.Y = JumpVelocity;
+			groundClock.Finish();
+			jumpClock.Finish();
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -79,6 +94,7 @@ public partial class Player : Entity
 		}
 
 		Velocity = velocity;
+		base._PhysicsProcess(delta);
 		MoveAndSlide();
 	}
 	void ChangeCameraPitch(float da){

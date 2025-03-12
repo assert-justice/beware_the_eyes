@@ -26,4 +26,10 @@ public class Clock{
     public void Reset(){
         duration = fullDuration;
     }
+    public void Finish(){
+        duration = 0;
+    }
+    public bool IsRunning(){
+        return duration > 0;
+    }
 }
