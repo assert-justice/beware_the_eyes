@@ -15,8 +15,11 @@ public partial class Player : Entity
 	[Export] float jumpBuffer = 0.1f;
 	[Export] int maxAirJumps = 1;
 	[Export] float dashTime = 0.5f;
-	[Export] float dashSpeed = 10.0f;
+	[Export] float dashSpeed = 15.0f;
 	[Export] int maxAirDashes = 1;
+	[Export] float jetPackPower = 1;
+	[Export] float maxJetPackFuel = 1;
+	float jetPackFuel = 0;
 	// [Export] float fov = 75.0f;
 	// [Export] float dashFov = 70.0f;
 	int airDashes = 0;
@@ -54,6 +57,7 @@ public partial class Player : Entity
 			groundClock.Reset();
 			airJumps = maxAirJumps;
 			airDashes = maxAirDashes;
+			jetPackFuel = maxJetPackFuel;
 		}
 		playerInput.Poll();
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
@@ -61,9 +65,18 @@ public partial class Player : Entity
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.
-		if (!IsOnFloor() && !dashClock.IsRunning())
-		{
-			velocity += GetGravity() * (float)delta;
+		// if (!IsOnFloor() && !dashClock.IsRunning())
+		// {
+		// 	velocity += GetGravity() * (float)delta;
+		// }
+		if(IsOnFloor()){}
+		else if(dashClock.IsRunning()){}
+		else if(playerInput.JumpPressed() && jetPackFuel > 0){
+			jetPackFuel -= dt;
+			velocity += Vector3.Up * jetPackPower * dt;
+		}
+		else{
+			velocity += GetGravity() * dt;
 		}
 
 		// Handle Jump.
