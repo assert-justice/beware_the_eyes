@@ -6,7 +6,7 @@ public partial class Player : Entity
 	[Export] public float Speed = 5.0f;
 	[Export] public float TurnSpeed = 5.0f;
 	[Export] public float JumpVelocity = 4.5f;
-	PlayerInput playerInput = new();
+	readonly PlayerInput playerInput = new();
 	Camera3D camera;
 	[Export] float minCameraAngle = -1;
 	[Export] float maxCameraAngle = 1;
@@ -14,9 +14,16 @@ public partial class Player : Entity
 	[Export] float coyoteTime = 0.1f;
 	[Export] float jumpBuffer = 0.1f;
 	[Export] int maxAirJumps = 1;
+	[Export] float dashTime = 0.5f;
+	[Export] float dashSpeed = 10.0f;
+	[Export] int maxAirDashes = 1;
+	// [Export] float fov = 75.0f;
+	// [Export] float dashFov = 70.0f;
+	int airDashes = 0;
 	int airJumps = 0;
 	Clock groundClock;
 	Clock jumpClock;
+	Clock dashClock;
 
 	public override void _Ready()
 	{
@@ -24,6 +31,8 @@ public partial class Player : Entity
 		camera = GetNode<Camera3D>("Camera3D");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
+		dashClock = AddClock(dashTime, 0);
+		// dashClock.Timeout = ()=>{camera.Fov = fov;};
 		// TODO: handle elsewhere
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -44,21 +53,20 @@ public partial class Player : Entity
 		if(IsOnFloor()) {
 			groundClock.Reset();
 			airJumps = maxAirJumps;
+			airDashes = maxAirDashes;
 		}
 		playerInput.Poll();
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()) GetTree().Quit();
 		Vector3 velocity = Velocity;
-		// Vector3 rotation = Rotation;
 
 		// Add the gravity.
-		if (!IsOnFloor())
+		if (!IsOnFloor() && !dashClock.IsRunning())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
 
 		// Handle Jump.
-		// GD.Print(jumpClock.GetDuration());
 		bool shouldJump = false;
 		if(jumpClock.IsRunning()){
 			if(groundClock.IsRunning()) shouldJump = true;
@@ -72,27 +80,39 @@ public partial class Player : Entity
 			groundClock.Finish();
 			jumpClock.Finish();
 		}
+		// Handle Dash
+		bool shouldDash = false;
+		if(playerInput.DashJustPressed()){
+			if(groundClock.IsRunning()) shouldDash = true;
+			else if(airDashes > 0){
+				airDashes--;
+				shouldDash = true;
+			}
+		}
+		if(shouldDash){
+			Vector3 dir = (camera.GlobalTransform.Basis * Vector3.Forward).Normalized();
+			velocity = dir * dashSpeed;
+			dashClock.Reset();
+			// camera.Fov = dashFov;
+		}
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		// Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		Vector2 aim = playerInput.GetAim();
-		// rotation.Y -= aim.X * TurnSpeed * dt;
 		ChangeCameraPitch(-aim.Y * TurnSpeed * dt);
 		ChangeCameraYaw(-aim.X * TurnSpeed * dt);
 		Vector2 inputDir = playerInput.GetMove();
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
-		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
+		if(!dashClock.IsRunning()){
+			if (direction != Vector3.Zero)
+			{
+				velocity.X = direction.X * Speed;
+				velocity.Z = direction.Z * Speed;
+			}
+			else
+			{
+				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+				velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			}
 		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
-		}
-
 		Velocity = velocity;
 		base._PhysicsProcess(delta);
 		MoveAndSlide();
