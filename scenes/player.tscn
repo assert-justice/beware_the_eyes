@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqq20l7ecxhkd"]
+[gd_scene load_steps=4 format=3 uid="uid://cqq20l7ecxhkd"]
 
 [ext_resource type="Script" uid="uid://d2sk2r4y3s4gc" path="res://scripts/game/Player.cs" id="1_3vyb7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8cj0n"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3vyb7"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
@@ -14,3 +16,20 @@ metadata/_edit_lock_ = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0.525534, -0.316616, -0.101398)
+layers = 2
+mesh = SubResource("BoxMesh_3vyb7")
+
+[node name="Control" type="Control" parent="Camera3D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Camera3D/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Health: 100"

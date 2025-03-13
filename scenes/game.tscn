@@ -95,6 +95,7 @@ metadata/_edit_lock_ = true
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.894209, 0.44765, 0, -0.44765, 0.894209, 0, 1.06476, -5.11427)
 shadow_enabled = true
+shadow_caster_mask = 4294967293
 
 [node name="FuncGodotMap" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.78763, 0)
