@@ -22,7 +22,7 @@ public partial class Player : Entity
 	[ExportGroup("Camera")]
 	[Export] float minCameraAngle = -1;
 	[Export] float maxCameraAngle = 1;
-	[Export] float mouseSensitivity = 1;
+	// [Export] float mouseSensitivity = 1;
 	[Export] float fov = 75.0f;
 	[Export] float dashFovScale = 0.9f;
 	readonly PlayerInput playerInput = new();
@@ -47,8 +47,9 @@ public partial class Player : Entity
 	}
 	public override void _Input(InputEvent @event)
 	{
-		if(Input.MouseMode == Input.MouseModeEnum.Captured){
+		if(Input.MouseMode == Input.MouseModeEnum.Captured && Globals.Instance.UseKeyboard){
 			if (@event is InputEventMouseMotion mouseMotion){
+				float mouseSensitivity = Globals.Instance.GetSettings().MouseSensitivity;
 				var motion = mouseMotion.Relative * mouseSensitivity * 0.001f;
 				ChangeCameraYaw(-motion.X);
 				ChangeCameraPitch(-motion.Y);

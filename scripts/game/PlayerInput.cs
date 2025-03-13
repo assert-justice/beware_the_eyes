@@ -8,7 +8,7 @@ public class PlayerInput{
     bool pauseJustPressed;
     bool dashJustPressed;
     public void Poll(){
-        if(Globals.UseKeyboard){
+        if(Globals.Instance.UseKeyboard){
             move = Input.GetVector("kb_move_left", "kb_move_right", "kb_move_up", "kb_move_down");
             if(move.Length() > 0) move = move.Normalized();
             aim = Input.GetVector("kb_aim_left", "kb_aim_right", "kb_aim_up", "kb_aim_down");
@@ -17,6 +17,16 @@ public class PlayerInput{
             jumpPressed = Input.IsActionPressed("kb_jump");
             pauseJustPressed = Input.IsActionJustPressed("kb_pause");
             dashJustPressed = Input.IsActionJustPressed("kb_dash");
+        }
+        else{
+            move = Input.GetVector("pad_move_left", "pad_move_right", "pad_move_up", "pad_move_down");
+            // if(move.Length() > 0) move = move.Normalized();
+            aim = Input.GetVector("pad_aim_left", "pad_aim_right", "pad_aim_up", "pad_aim_down");
+            // if(aim.Length() > 0) aim = aim.Normalized();
+            jumpJustPressed = Input.IsActionJustPressed("pad_jump");
+            jumpPressed = Input.IsActionPressed("pad_jump");
+            pauseJustPressed = Input.IsActionJustPressed("pad_pause");
+            dashJustPressed = Input.IsActionJustPressed("pad_dash");
         }
     }
     public Vector2 GetMove(){return move;}
