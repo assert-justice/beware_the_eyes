@@ -2,9 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Entity : Node3D
+public abstract partial class Entity : Node3D
 {
     List<Clock> clocks = [];
+    EntPool pool;
+    Vector3 Velocity;
+    int Team = 0;
     public Clock AddClock(float fullDuration, float duration = -1){
         Clock c = new(fullDuration, duration);
         clocks.Add(c);
@@ -17,6 +20,15 @@ public partial class Entity : Node3D
         {
             c.Update((float)delta);
         }
-        // MoveAndSlide();
+        Position += Velocity * (float)delta;
     }
+    public abstract void Init();
+    public void SetPool(EntPool entPool){
+        pool = entPool;
+    }
+    public virtual void Die(){
+        if(pool == null) return;
+        pool.GetPool().Free(this);
+    }
+    public int GetTeam(){return Team;}
 }

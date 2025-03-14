@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4wgbaxjbnxw0"]
+
+[ext_resource type="Script" uid="uid://cmuw6d40tu0ls" path="res://scripts/game/Spark.cs" id="1_p3mhk"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_p3mhk"]
+
+[node name="Spark" type="Node3D"]
+script = ExtResource("1_p3mhk")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+emitting = false
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+mesh = SubResource("SphereMesh_p3mhk")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0

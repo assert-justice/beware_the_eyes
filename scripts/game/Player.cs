@@ -3,6 +3,7 @@ using System;
 
 public partial class Player : Actor
 {
+	[Export] PackedScene SparkleScene;
 	[ExportGroup("PowerUps")]
 	[Export] bool doubleJumpEnabled = true;
 	[Export] bool dashEnabled = true;
@@ -33,6 +34,7 @@ public partial class Player : Actor
 	Clock groundClock;
 	Clock jumpClock;
 	Clock dashClock;
+	EntPool sparklePool;
 
 	public override void _Ready()
 	{
@@ -42,6 +44,7 @@ public partial class Player : Actor
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
+		sparklePool = AddPool(GetParent(), ()=>{return SparkleScene.Instantiate<Entity>();});
 		// TODO: handle elsewhere
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -72,9 +75,11 @@ public partial class Player : Actor
 		playerInput.Poll();
 		if(playerInput.FireJustPressed()){
 			if(rayCast.IsColliding()){
-				var target = rayCast.GetCollider();
+				// var target = rayCast.GetCollider();
 				var point = rayCast.GetCollisionPoint();
-				GD.Print(target, point);
+				// GD.Print(target, point);
+				var s = sparklePool.GetPool().GetNew();
+				s.Position = point;
 			}
 		}
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
