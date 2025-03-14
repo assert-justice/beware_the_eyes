@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Player : Entity
+public partial class Player : Actor
 {
 	[ExportGroup("PowerUps")]
 	[Export] bool doubleJumpEnabled = true;

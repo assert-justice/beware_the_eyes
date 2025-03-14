@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Entity : Node3D
+public partial class Actor : CharacterBody3D
 {
     List<Clock> clocks = [];
     public Clock AddClock(float fullDuration, float duration = -1){
