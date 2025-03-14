@@ -22,11 +22,11 @@ public partial class Player : Entity
 	[ExportGroup("Camera")]
 	[Export] float minCameraAngle = -1;
 	[Export] float maxCameraAngle = 1;
-	// [Export] float mouseSensitivity = 1;
 	[Export] float fov = 75.0f;
 	[Export] float dashFovScale = 0.9f;
 	readonly PlayerInput playerInput = new();
 	Camera3D camera;
+	RayCast3D rayCast;
 	float jetPackFuel = 0;
 	int airDashes = 0;
 	int airJumps = 0;
@@ -38,10 +38,10 @@ public partial class Player : Entity
 	{
 		base._Ready();
 		camera = GetNode<Camera3D>("Camera3D");
+		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
-		// dashClock.Timeout = ()=>{camera.Fov = fov;};
 		// TODO: handle elsewhere
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -70,6 +70,13 @@ public partial class Player : Entity
 			jetPackFuel = maxJetPackFuel;
 		}
 		playerInput.Poll();
+		if(playerInput.FireJustPressed()){
+			if(rayCast.IsColliding()){
+				var target = rayCast.GetCollider();
+				var point = rayCast.GetCollisionPoint();
+				GD.Print(target, point);
+			}
+		}
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()) GetTree().Quit();
 		Vector3 velocity = Velocity;
@@ -107,10 +114,9 @@ public partial class Player : Entity
 			}
 		}
 		if(shouldDash){
-			Vector3 dir = (camera.GlobalTransform.Basis * Vector3.Forward).Normalized();
+			Vector3 dir = (GlobalTransform.Basis * Vector3.Forward).Normalized();
 			velocity = dir * dashSpeed;
 			dashClock.Reset();
-			// camera.Fov = dashFov;
 		}
 
 		Vector2 aim = playerInput.GetAim();
