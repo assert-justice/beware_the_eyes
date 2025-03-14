@@ -35,12 +35,14 @@ public partial class Player : Actor
 	Clock jumpClock;
 	Clock dashClock;
 	EntPool sparklePool;
+	Label hud;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		camera = GetNode<Camera3D>("Camera3D");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
+		hud = GetNode<Label>("Camera3D/Control/Label");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
@@ -89,6 +91,7 @@ public partial class Player : Actor
 		else if(dashClock.IsRunning()){}
 		else if(jetPackEnabled && playerInput.JumpPressed() && jetPackFuel > 0){
 			jetPackFuel -= dt;
+			if(jetPackFuel < 0) jetPackFuel = 0;
 			velocity += Vector3.Up * jetPackPower * dt;
 		}
 		else{
@@ -143,6 +146,7 @@ public partial class Player : Actor
 		}
 		Velocity = velocity;
 		base._PhysicsProcess(delta);
+		SetHud();
 		MoveAndSlide();
 	}
 	void ChangeCameraPitch(float da){
@@ -154,5 +158,9 @@ public partial class Player : Actor
 		Vector3 cameraRotation = Rotation;
 		cameraRotation.Y += da;
 		Rotation = cameraRotation;
+	}
+	void SetHud(){
+		int fuel = Mathf.FloorToInt(jetPackFuel * 100);
+		hud.Text = $"Health: {Health}\nAmmo: {100}\nFuel: {fuel}";
 	}
 }

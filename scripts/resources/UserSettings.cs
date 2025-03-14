@@ -7,4 +7,5 @@ public partial class UserSettings: Resource{
     public float MainVolume = 1;
     public float SfxVolume = 1;
     public float MusicVolume = 1;
+    public bool Fullscreen = false;
 }

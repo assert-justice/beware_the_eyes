@@ -6,7 +6,7 @@ public abstract partial class Actor : CharacterBody3D
 {
     List<Clock> clocks = [];
     List<EntPool> pools = [];
-    float Health = 100;
+    protected float Health = 100;
     int Team = 0;
     public Clock AddClock(float fullDuration, float duration = -1){
         Clock c = new(fullDuration, duration);
