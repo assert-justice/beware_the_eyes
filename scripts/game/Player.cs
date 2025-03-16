@@ -34,8 +34,12 @@ public partial class Player : Actor
 	Clock groundClock;
 	Clock jumpClock;
 	Clock dashClock;
+	// Clock velocityClock;
 	EntPool sparklePool;
 	Label hud;
+	Notification notification;
+	// Vector3 nextVelocity = new();
+	// Vector3 lastVelocity = new();
 
 	public override void _Ready()
 	{
@@ -43,9 +47,11 @@ public partial class Player : Actor
 		camera = GetNode<Camera3D>("Camera3D");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		hud = GetNode<Label>("Camera3D/Control/Label");
+		notification = GetNode<Notification>("Camera3D/Control/Notification");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
+		// velocityClock = AddClock(0.1f, 0);
 		sparklePool = AddPool(GetParent(), ()=>{return SparkleScene.Instantiate<Entity>();});
 		// TODO: handle elsewhere
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -75,13 +81,14 @@ public partial class Player : Actor
 			jetPackFuel = maxJetPackFuel;
 		}
 		playerInput.Poll();
+		Vector2 inputDir = playerInput.GetMove();
 		if(playerInput.FireJustPressed()){
 			if(rayCast.IsColliding()){
 				// var target = rayCast.GetCollider();
 				var point = rayCast.GetCollisionPoint();
-				// GD.Print(target, point);
 				var s = sparklePool.GetPool().GetNew();
 				s.Position = point;
+				notification.AddMessage("fire!");
 			}
 		}
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
@@ -122,7 +129,7 @@ public partial class Player : Actor
 			}
 		}
 		if(shouldDash){
-			Vector3 dir = (GlobalTransform.Basis * Vector3.Forward).Normalized();
+			Vector3 dir = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 			velocity = dir * dashSpeed;
 			dashClock.Reset();
 		}
@@ -130,7 +137,6 @@ public partial class Player : Actor
 		Vector2 aim = playerInput.GetAim();
 		ChangeCameraPitch(-aim.Y * TurnSpeed * dt);
 		ChangeCameraYaw(-aim.X * TurnSpeed * dt);
-		Vector2 inputDir = playerInput.GetMove();
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if(!dashClock.IsRunning()){
 			if (direction != Vector3.Zero)

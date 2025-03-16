@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=4 uid="uid://csvukd1y5q4sf"]
+[gd_scene load_steps=23 format=4 uid="uid://csvukd1y5q4sf"]
 
 [ext_resource type="PackedScene" uid="uid://cqq20l7ecxhkd" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d1riv8ior488h" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://b4wgbaxjbnxw0" path="res://scenes/spark.tscn" id="2_u5sy4"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="3_iywne"]
 [ext_resource type="Material" uid="uid://bcreo13nuorsr" path="res://textures/wall_pink_b.tres" id="4_iywne"]
 [ext_resource type="Material" uid="uid://bjps7ynnv00hm" path="res://textures/wall_red_a.tres" id="6_gee14"]
@@ -96,7 +95,6 @@ points = PackedVector3Array(-11, 11, -10, -11, 1, -10, -9, 1, -10, -9, 11, -10, 
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.103675, 0)
-SparkleScene = ExtResource("2_u5sy4")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.9003, 0)
