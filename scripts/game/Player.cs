@@ -25,7 +25,7 @@ public partial class Player : Actor
 	[Export] float maxCameraAngle = 1;
 	[Export] float fov = 75.0f;
 	[Export] float dashFovScale = 0.9f;
-	[Export] float maxTiltAngle = 0.03f;
+	[Export] float maxTiltAngle = 0.04f;
 	[Export] float tiltAngleSpeed = 0.5f;
 	readonly PlayerInput playerInput = new();
 	Camera3D camera;
@@ -36,12 +36,10 @@ public partial class Player : Actor
 	Clock groundClock;
 	Clock jumpClock;
 	Clock dashClock;
-	// Clock velocityClock;
 	EntPool sparklePool;
 	Label hud;
 	Notification notification;
-	// Vector3 nextVelocity = new();
-	// Vector3 lastVelocity = new();
+	Vector3 nextVelocity = new();
 
 	public override void _Ready()
 	{
@@ -53,7 +51,6 @@ public partial class Player : Actor
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
-		// velocityClock = AddClock(0.1f, 0);
 		sparklePool = AddPool(GetParent(), ()=>{return SparkleScene.Instantiate<Entity>();});
 		// TODO: handle elsewhere
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -132,6 +129,7 @@ public partial class Player : Actor
 		}
 		if(shouldDash){
 			Vector3 dir = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+			if(inputDir.Length() == 0) dir = (Transform.Basis * Vector3.Forward).Normalized();
 			velocity = dir * dashSpeed;
 			dashClock.Reset();
 		}
