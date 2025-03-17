@@ -8,4 +8,5 @@ public partial class UserSettings: Resource{
     public float SfxVolume = 1;
     public float MusicVolume = 1;
     public bool Fullscreen = false;
+    public bool CameraSway = true;
 }

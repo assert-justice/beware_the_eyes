@@ -138,7 +138,7 @@ public partial class Player : Actor
 		ChangeCameraPitch(-aim.Y * TurnSpeed * dt);
 		ChangeCameraYaw(-aim.X * TurnSpeed * dt);
 		var angle = Mathf.MoveToward(camera.Rotation.Z, inputDir.X * maxTiltAngle, dt * tiltAngleSpeed);
-		SetCameraRoll(angle);
+		if(Globals.Instance.GetSettings().CameraSway) SetCameraRoll(angle);
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if(!dashClock.IsRunning()){
 			if (direction != Vector3.Zero)
