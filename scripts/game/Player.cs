@@ -25,6 +25,8 @@ public partial class Player : Actor
 	[Export] float maxCameraAngle = 1;
 	[Export] float fov = 75.0f;
 	[Export] float dashFovScale = 0.9f;
+	[Export] float maxTiltAngle = 0.03f;
+	[Export] float tiltAngleSpeed = 0.5f;
 	readonly PlayerInput playerInput = new();
 	Camera3D camera;
 	RayCast3D rayCast;
@@ -137,6 +139,8 @@ public partial class Player : Actor
 		Vector2 aim = playerInput.GetAim();
 		ChangeCameraPitch(-aim.Y * TurnSpeed * dt);
 		ChangeCameraYaw(-aim.X * TurnSpeed * dt);
+		var angle = Mathf.MoveToward(camera.Rotation.Z, inputDir.X * maxTiltAngle, dt * tiltAngleSpeed);
+		SetCameraRoll(angle);
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if(!dashClock.IsRunning()){
 			if (direction != Vector3.Zero)
@@ -164,6 +168,11 @@ public partial class Player : Actor
 		Vector3 cameraRotation = Rotation;
 		cameraRotation.Y += da;
 		Rotation = cameraRotation;
+	}
+	void SetCameraRoll(float da){
+		Vector3 cameraRotation = camera.Rotation;
+		cameraRotation.Z = da;
+		camera.Rotation = cameraRotation;
 	}
 	void SetHud(){
 		int fuel = Mathf.FloorToInt(jetPackFuel * 100);

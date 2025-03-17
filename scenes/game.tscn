@@ -95,6 +95,9 @@ points = PackedVector3Array(-11, 11, -10, -11, 1, -10, -9, 1, -10, -9, 11, -10, 
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.103675, 0)
+doubleJumpEnabled = false
+dashEnabled = false
+jetPackEnabled = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.9003, 0)
