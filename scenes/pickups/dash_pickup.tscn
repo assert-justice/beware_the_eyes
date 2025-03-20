@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bo63vyevl4exl"]
+
+[ext_resource type="Script" uid="uid://d2sv658e5rxo1" path="res://scripts/game/Pickup.cs" id="1_xcfjg"]
+[ext_resource type="ArrayMesh" uid="uid://bh63o1y3mxutp" path="res://models/dash.obj" id="2_xcfjg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f7aac"]
+
+[node name="JetpackPickup" type="Node3D"]
+script = ExtResource("1_xcfjg")
+Type = 2
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("2_xcfjg")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.441238, 0)
+shape = SubResource("SphereShape3D_f7aac")

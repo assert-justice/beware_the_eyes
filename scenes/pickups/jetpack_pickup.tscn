@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5ajbedtb110a"]
+
+[ext_resource type="Script" uid="uid://d2sv658e5rxo1" path="res://scripts/game/Pickup.cs" id="1_byhw5"]
+[ext_resource type="ArrayMesh" uid="uid://bqk7vhtle2im4" path="res://models/jetpack.obj" id="1_tr42h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_byhw5"]
+height = 1.43334
+
+[node name="JetpackPickup" type="Node3D"]
+script = ExtResource("1_byhw5")
+Type = 1
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("1_tr42h")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.441238, 0)
+shape = SubResource("CapsuleShape3D_byhw5")

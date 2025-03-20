@@ -164,6 +164,14 @@ public partial class Player : Actor
 			doubleJumpEnabled = true;
 			notification.AddMessage("Double Jump Acquired!");
 			break;
+			case PickupType.JetPack:
+			jetPackEnabled = true;
+			notification.AddMessage("Jetpack Acquired!");
+			break;
+			case PickupType.Dash:
+			dashEnabled = true;
+			notification.AddMessage("Dash Acquired!");
+			break;
 			default:
 			break;
 		}

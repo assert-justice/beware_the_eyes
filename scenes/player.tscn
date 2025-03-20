@@ -25,6 +25,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0.525534, -0.316616, -0.1
 
 [node name="Shotgun" parent="Camera3D/Hardpoint" instance=ExtResource("3_qlg0r")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0)
+visible = false
 
 [node name="Control" type="Control" parent="Camera3D"]
 layout_mode = 3

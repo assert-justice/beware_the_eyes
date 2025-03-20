@@ -2,6 +2,8 @@ using Godot;
 
 public enum PickupType{
 	Boots,
+	JetPack,
+	Dash,
 }
 
 public partial class Pickup : Node3D
