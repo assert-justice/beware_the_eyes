@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvdf4tfkggudi"]
+
+[ext_resource type="ArrayMesh" uid="uid://c4cnpc7lpns1d" path="res://models/zapper.obj" id="1_siiuh"]
+
+[node name="Zapper" type="Node3D"]
+
+[node name="Zapper" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+layers = 2
+mesh = ExtResource("1_siiuh")

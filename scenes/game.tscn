@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://csvukd1y5q4sf"]
+[gd_scene load_steps=24 format=4 uid="uid://csvukd1y5q4sf"]
 
 [ext_resource type="PackedScene" uid="uid://cqq20l7ecxhkd" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d1riv8ior488h" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_lbhrr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://bcreo13nuorsr" path="res://textures/wall_pink_b.tres" id="4_iywne"]
 [ext_resource type="Material" uid="uid://bjps7ynnv00hm" path="res://textures/wall_red_a.tres" id="6_gee14"]
 [ext_resource type="Material" uid="uid://yeuy6utmf7v5" path="res://textures/floor_red_b.tres" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://wi505b50vsr6" path="res://scenes/pickups/boots_pickup.tscn" id="7_u5sy4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
 size = Vector3(50, 1, 50)
@@ -95,6 +96,9 @@ points = PackedVector3Array(-11, 11, -10, -11, 1, -10, -9, 1, -10, -9, 11, -10, 
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.103675, 0)
+doubleJumpEnabled = false
+dashEnabled = false
+jetPackEnabled = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.9003, 0)
@@ -164,3 +168,6 @@ shape = SubResource("ConvexPolygonShape3D_264po")
 
 [node name="entity_0_brush_11_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_1kice")
+
+[node name="BootsPickup" parent="." instance=ExtResource("7_u5sy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00682, -0.62763, 4.00941)

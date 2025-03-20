@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7rj4brd2p3tp"]
+
+[ext_resource type="ArrayMesh" uid="uid://t5rc6543yn44" path="res://models/unnamed.obj" id="1_lbead"]
+
+[node name="Shotgun" type="Node3D"]
+
+[node name="Unnamed" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+layers = 2
+mesh = ExtResource("1_lbead")

@@ -157,6 +157,17 @@ public partial class Player : Actor
 		SetHud();
 		MoveAndSlide();
 	}
+	public void AddPickup(PickupType pickupType){
+		switch (pickupType)
+		{
+			case PickupType.Boots:
+			doubleJumpEnabled = true;
+			notification.AddMessage("Double Jump Acquired!");
+			break;
+			default:
+			break;
+		}
+	}
 	void ChangeCameraPitch(float da){
 		Vector3 cameraRotation = camera.Rotation;
 		cameraRotation.X = Mathf.Clamp(cameraRotation.X + da, minCameraAngle, maxCameraAngle);

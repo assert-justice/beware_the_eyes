@@ -1,0 +1,6 @@
+newmtl flat_1_a
+map_Kd ../textures/flat_1_a.png
+
+newmtl flat_2_d
+map_Kd ../textures/flat_2_d.png
+
