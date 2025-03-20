@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://csvukd1y5q4sf"]
+[gd_scene load_steps=27 format=4 uid="uid://csvukd1y5q4sf"]
 
 [ext_resource type="PackedScene" uid="uid://cqq20l7ecxhkd" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d1riv8ior488h" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_lbhrr"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://wi505b50vsr6" path="res://scenes/pickups/boots_pickup.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://bo63vyevl4exl" path="res://scenes/pickups/dash_pickup.tscn" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://c5ajbedtb110a" path="res://scenes/pickups/jetpack_pickup.tscn" id="9_vtaks"]
+[ext_resource type="PackedScene" uid="uid://cw1cej6iguibb" path="res://scenes/enemies/prism.tscn" id="10_vtaks"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
 size = Vector3(50, 1, 50)
@@ -177,5 +178,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.39742, -1.22738, 0.417044)
 [node name="JetpackPickup" parent="." instance=ExtResource("8_0tnpc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.46562, -2.78763, 8.48412)
 
-[node name="JetpackPickup2" parent="." instance=ExtResource("9_vtaks")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9847, -0.78763, 4.08655)
+[node name="DashPickup" parent="." instance=ExtResource("9_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.99956, -0.78763, 4.08102)
+
+[node name="Prism" parent="." instance=ExtResource("10_vtaks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08997, 5.53029, 5.00507)

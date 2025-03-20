@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw1cej6iguibb"]
+
+[ext_resource type="Script" uid="uid://b2v15m6knpqkb" path="res://scripts/game/Prism.cs" id="1_o6hqf"]
+[ext_resource type="ArrayMesh" uid="uid://twunee4mw7gw" path="res://models/prism.obj" id="1_xxscs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yq7hr"]
+radius = 1.26178
+
+[node name="Prism" type="CharacterBody3D"]
+motion_mode = 1
+script = ExtResource("1_o6hqf")
+
+[node name="Prism" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = ExtResource("1_xxscs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_yq7hr")
