@@ -32,6 +32,10 @@ project/assembly_name="Beware The Eyes"
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
+[global_group]
+
+Game=""
+
 [input]
 
 pad_move_left={

@@ -94,6 +94,7 @@ public partial class Player : Actor
 			{
 				Team = Team,
 				Ray = rayCast,
+				JustPressed = playerInput.FireJustPressed(),
 			};
 			CurrentWeapon?.TryFire(command);
 		}
