@@ -9,6 +9,7 @@ public class PlayerInput{
     bool dashJustPressed;
     bool firePressed;
     bool fireJustPressed;
+    bool[] weaponSelected = [false, false, false, false];
     public void Poll(){
         if(Globals.Instance.UseKeyboard){
             move = Input.GetVector("kb_move_left", "kb_move_right", "kb_move_up", "kb_move_down");
@@ -21,6 +22,10 @@ public class PlayerInput{
             dashJustPressed = Input.IsActionJustPressed("kb_dash");
             firePressed = Input.IsActionPressed("kb_fire");
             fireJustPressed = Input.IsActionJustPressed("kb_fire");
+            weaponSelected[0] = Input.IsActionJustPressed("kb_wep_1");
+            weaponSelected[1] = Input.IsActionJustPressed("kb_wep_2");
+            weaponSelected[2] = Input.IsActionJustPressed("kb_wep_3");
+            weaponSelected[3] = Input.IsActionJustPressed("kb_wep_4");
         }
         else{
             move = Input.GetVector("pad_move_left", "pad_move_right", "pad_move_up", "pad_move_down");
@@ -31,6 +36,10 @@ public class PlayerInput{
             dashJustPressed = Input.IsActionJustPressed("pad_dash");
             firePressed = Input.IsActionPressed("pad_fire");
             fireJustPressed = Input.IsActionJustPressed("pad_fire");
+            weaponSelected[0] = Input.IsActionJustPressed("pad_wep_1");
+            weaponSelected[1] = Input.IsActionJustPressed("pad_wep_2");
+            weaponSelected[2] = Input.IsActionJustPressed("pad_wep_3");
+            weaponSelected[3] = Input.IsActionJustPressed("pad_wep_4");
         }
     }
     public Vector2 GetMove(){return move;}
@@ -41,4 +50,7 @@ public class PlayerInput{
     public bool DashJustPressed(){return dashJustPressed;}
     public bool FirePressed(){return firePressed;}
     public bool FireJustPressed(){return fireJustPressed;}
+    public bool[] GetWeaponMask(){
+        return weaponSelected;
+    }
 }

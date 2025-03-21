@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqq20l7ecxhkd"]
+[gd_scene load_steps=10 format=3 uid="uid://cqq20l7ecxhkd"]
 
 [ext_resource type="Script" uid="uid://d2sk2r4y3s4gc" path="res://scripts/game/Player.cs" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://b4wgbaxjbnxw0" path="res://scenes/spark.tscn" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://hchlyshf1pau" path="res://hud/crosshair003.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://jq0st5yg1pes" path="res://scripts/game/Notification.cs" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://c7rj4brd2p3tp" path="res://scenes/weapons/shotgun.tscn" id="3_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://cvqw2dlm8scp1" path="res://scenes/weapons/launcher.tscn" id="4_smehm"]
+[ext_resource type="PackedScene" uid="uid://bgnbr2c12sqs0" path="res://scenes/weapons/crossbow.tscn" id="5_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://bvdf4tfkggudi" path="res://scenes/weapons/zapper.tscn" id="6_y4r1p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8cj0n"]
 
@@ -21,10 +24,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 metadata/_edit_lock_ = true
 
 [node name="Hardpoint" type="Node3D" parent="Camera3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0.525534, -0.316616, -0.101398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.525534, -0.316616, -0.101398)
 
 [node name="Shotgun" parent="Camera3D/Hardpoint" instance=ExtResource("3_qlg0r")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Launcher" parent="Camera3D/Hardpoint" instance=ExtResource("4_smehm")]
+visible = false
+
+[node name="Crossbow" parent="Camera3D/Hardpoint" instance=ExtResource("5_ur7pv")]
+visible = false
+
+[node name="Zapper" parent="Camera3D/Hardpoint" instance=ExtResource("6_y4r1p")]
 visible = false
 
 [node name="Control" type="Control" parent="Camera3D"]

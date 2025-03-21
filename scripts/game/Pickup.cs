@@ -4,6 +4,11 @@ public enum PickupType{
 	Boots,
 	JetPack,
 	Dash,
+	Shotgun,
+	Zapper,
+	Launcher,
+	Crossbow,
+	Axe,
 }
 
 public partial class Pickup : Node3D

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://csvukd1y5q4sf"]
+[gd_scene load_steps=32 format=4 uid="uid://csvukd1y5q4sf"]
 
 [ext_resource type="PackedScene" uid="uid://cqq20l7ecxhkd" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d1riv8ior488h" path="res://addons/func_godot/src/map/func_godot_map.gd" id="2_lbhrr"]
@@ -10,6 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://bo63vyevl4exl" path="res://scenes/pickups/dash_pickup.tscn" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://c5ajbedtb110a" path="res://scenes/pickups/jetpack_pickup.tscn" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cw1cej6iguibb" path="res://scenes/enemies/prism.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://citmw6delc0dp" path="res://scenes/pickups/axe_pickup.tscn" id="11_ir15t"]
+[ext_resource type="PackedScene" uid="uid://bq88cffacsvd8" path="res://scenes/pickups/crossbow_pickup.tscn" id="12_ca42v"]
+[ext_resource type="PackedScene" uid="uid://3y18c3syt8kk" path="res://scenes/pickups/launcher_pickup.tscn" id="13_rysoc"]
+[ext_resource type="PackedScene" uid="uid://cy6umvgm21gyr" path="res://scenes/pickups/shotgun_pickup.tscn" id="14_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://bxlqemv66jnc4" path="res://scenes/pickups/zapper_pickup.tscn" id="15_264po"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
 size = Vector3(50, 1, 50)
@@ -173,7 +178,7 @@ shape = SubResource("ConvexPolygonShape3D_264po")
 shape = SubResource("ConvexPolygonShape3D_1kice")
 
 [node name="BootsPickup" parent="." instance=ExtResource("7_u5sy4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.39742, -1.22738, 0.417044)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02918, -1.22738, -0.0617377)
 
 [node name="JetpackPickup" parent="." instance=ExtResource("8_0tnpc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.46562, -2.78763, 8.48412)
@@ -183,3 +188,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.99956, -0.78763, 4.08102)
 
 [node name="Prism" parent="." instance=ExtResource("10_vtaks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08997, 5.53029, 5.00507)
+
+[node name="AxePickup" parent="." instance=ExtResource("11_ir15t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.71296, -2.14763, -6.723)
+
+[node name="CrossbowPickup" parent="." instance=ExtResource("12_ca42v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09297, -2.62763, -6.89726)
+
+[node name="LauncherPickup" parent="." instance=ExtResource("13_rysoc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.37094, -2.46763, -6.71064)
+
+[node name="ShotgunPickup" parent="." instance=ExtResource("14_ssvqc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.526599, -2.62763, -6.59302)
+
+[node name="ZapperPickup" parent="." instance=ExtResource("15_264po")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17063, -2.62763, -6.76194)

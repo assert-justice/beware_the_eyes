@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7rj4brd2p3tp"]
+[gd_scene load_steps=3 format=3 uid="uid://c7rj4brd2p3tp"]
 
+[ext_resource type="Script" uid="uid://elhrmpkdoa44" path="res://scripts/game/weapons/Shotgun.cs" id="1_0frcf"]
 [ext_resource type="ArrayMesh" uid="uid://t5rc6543yn44" path="res://models/unnamed.obj" id="1_lbead"]
 
 [node name="Shotgun" type="Node3D"]
+script = ExtResource("1_0frcf")
 
 [node name="Unnamed" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)

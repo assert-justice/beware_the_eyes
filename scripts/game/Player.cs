@@ -40,12 +40,15 @@ public partial class Player : Actor
 	Label hud;
 	Notification notification;
 	Vector3 nextVelocity = new();
+	Node3D hardPoint;
+	Weapon CurrentWeapon = null;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		camera = GetNode<Camera3D>("Camera3D");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
+		hardPoint = GetNode<Node3D>("Camera3D/Hardpoint");
 		hud = GetNode<Label>("Camera3D/Control/Label");
 		notification = GetNode<Notification>("Camera3D/Control/Notification");
 		groundClock = AddClock(coyoteTime, 0);
@@ -80,16 +83,29 @@ public partial class Player : Actor
 			jetPackFuel = maxJetPackFuel;
 		}
 		playerInput.Poll();
-		Vector2 inputDir = playerInput.GetMove();
-		if(playerInput.FireJustPressed()){
-			if(rayCast.IsColliding()){
-				// var target = rayCast.GetCollider();
-				var point = rayCast.GetCollisionPoint();
-				var s = sparklePool.GetPool().GetNew();
-				s.Position = point;
-				notification.AddMessage("fire!");
-			}
+		var weaponSelected = playerInput.GetWeaponMask();
+		for (int i = 0; i < weaponSelected.Length; i++)
+		{
+			if(weaponSelected[i]) SetWeapon(i);
 		}
+		Vector2 inputDir = playerInput.GetMove();
+		if(playerInput.FirePressed()){
+			FireCommand command = new()
+			{
+				Team = Team,
+				Ray = rayCast,
+			};
+			CurrentWeapon?.TryFire(command);
+		}
+		// if(playerInput.FireJustPressed()){
+		// 	if(rayCast.IsColliding()){
+		// 		// var target = rayCast.GetCollider();
+		// 		var point = rayCast.GetCollisionPoint();
+		// 		var s = sparklePool.GetPool().GetNew();
+		// 		s.Position = point;
+		// 		notification.AddMessage("fire!");
+		// 	}
+		// }
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()) GetTree().Quit();
 		Vector3 velocity = Velocity;
@@ -172,9 +188,42 @@ public partial class Player : Actor
 			dashEnabled = true;
 			notification.AddMessage("Dash Acquired!");
 			break;
+			case PickupType.Shotgun:
+			EnableWeapon(0);
+			notification.AddMessage("Shotgun Acquired!");
+			break;
+			case PickupType.Zapper:
+			EnableWeapon(3);
+			notification.AddMessage("Zapper Acquired!");
+			break;
+			case PickupType.Crossbow:
+			EnableWeapon(2);
+			notification.AddMessage("Crossbow Acquired!");
+			break;
+			case PickupType.Launcher:
+			EnableWeapon(1);
+			notification.AddMessage("Launcher Acquired!");
+			break;
+			case PickupType.Axe:
+			notification.AddMessage("Axe Acquired!");
+			break;
 			default:
+			GD.PrintErr("Unhandled pickup type!");
+			notification.AddMessage("Unhandled pickup type!");
 			break;
 		}
+	}
+	void EnableWeapon(int idx){
+		var weapon = hardPoint.GetChild<Weapon>(idx);
+		weapon.Enable();
+		SetWeapon(idx);
+	}
+	void SetWeapon(int idx){
+		var weapon = hardPoint.GetChild<Weapon>(idx);
+		if(!weapon.IsEnabled()) return;
+		CurrentWeapon?.UnMount();
+		weapon.Mount();
+		CurrentWeapon = weapon;
 	}
 	void ChangeCameraPitch(float da){
 		Vector3 cameraRotation = camera.Rotation;
