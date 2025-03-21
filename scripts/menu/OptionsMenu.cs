@@ -14,7 +14,7 @@ public partial class OptionsMenu: Menu{
 	public override void _Ready()
 	{
 		base._Ready();
-		// var settings = Globals.Instance.GetSettings();
+		var settings = Globals.Instance.GetSettings();
 		// mainVolumeId = AudioServer.GetBusIndex("Master");
 		// musicId = AudioServer.GetBusIndex("Music");
 		// sfxId = AudioServer.GetBusIndex("Sfx");
@@ -24,8 +24,11 @@ public partial class OptionsMenu: Menu{
 		// musicSlider.DragEnded += b =>{ if (b) SetVolume(musicId, (float)musicSlider.Value);};
 		// sfxSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/SfxSlider");
 		// sfxSlider.DragEnded += b =>{ if (b) SetVolume(sfxId, (float)sfxSlider.Value);};
-		// fullscreen = GetNode<CheckButton>("HBoxContainer/VBoxContainer/Fullscreen");
-		// fullscreen.Toggled += b => { SetFullscreen(b);};
+		fullscreen = GetNode<CheckButton>("HBoxContainer/VBoxContainer/Fullscreen");
+		fullscreen.Toggled += b => { 
+			SetFullscreen(b);
+			settings.Fullscreen = b;
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
@@ -34,7 +37,12 @@ public partial class OptionsMenu: Menu{
 		// mainSlider.Value = GetVolume(mainVolumeId);
 		// musicSlider.Value = GetVolume(musicId);
 		// sfxSlider.Value = GetVolume(sfxId);
-		// fullscreen.ButtonPressed = IsFullscreen();
+		fullscreen.ButtonPressed = IsFullscreen();
+    }
+    public override void OnSleep()
+    {
+        base.OnSleep();
+		// Save settings
     }
     static bool IsFullscreen(){
 		return DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
