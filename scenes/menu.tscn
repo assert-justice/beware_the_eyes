@@ -103,12 +103,10 @@ layout_mode = 2
 text = "Camera Roll"
 
 [node name="Label5" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Mouse Sensitivity"
 
 [node name="MouseSensitivity" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label6" type="Label" parent="Options/HBoxContainer/VBoxContainer"]

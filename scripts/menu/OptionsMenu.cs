@@ -5,6 +5,7 @@ public partial class OptionsMenu: Menu{
 	HSlider mainSlider;
 	HSlider musicSlider;
 	HSlider sfxSlider;
+	HSlider mouseSensitivity;
 	CheckButton fullscreen;
 	CheckButton invert;
 	CheckButton cameraRoll;
@@ -37,6 +38,12 @@ public partial class OptionsMenu: Menu{
 		cameraRoll.Toggled += b => {
 			settings.CameraRoll = b;
 		};
+		mouseSensitivity = GetNode<HSlider>("HBoxContainer/VBoxContainer/MouseSensitivity");
+		mouseSensitivity.DragEnded += b => {
+			if(!b)return;
+			float value = (float)mouseSensitivity.Value / 100;
+			settings.MouseSensitivity = value;
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
@@ -49,6 +56,7 @@ public partial class OptionsMenu: Menu{
 		fullscreen.ButtonPressed = IsFullscreen();
 		invert.ButtonPressed = settings.InvertCamera;
 		cameraRoll.ButtonPressed = settings.CameraRoll;
+		mouseSensitivity.Value = settings.MouseSensitivity * 100;
     }
     public override void OnSleep()
     {
