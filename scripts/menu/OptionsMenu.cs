@@ -2,30 +2,39 @@
 using Godot;
 
 public partial class OptionsMenu: Menu{
+	HSlider mainSlider;
 	HSlider musicSlider;
 	HSlider sfxSlider;
-	CheckBox fullscreenCheckbox;
+	CheckButton fullscreen;
+	CheckButton invert;
+	CheckButton cameraSway;
+	int mainVolumeId;
 	int musicId;
 	int sfxId;
 	public override void _Ready()
 	{
 		base._Ready();
+		// var settings = Globals.Instance.GetSettings();
+		// mainVolumeId = AudioServer.GetBusIndex("Master");
 		// musicId = AudioServer.GetBusIndex("Music");
 		// sfxId = AudioServer.GetBusIndex("Sfx");
+		// mainSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/MusicSlider");
+		// mainSlider.DragEnded += b =>{ if (b) SetVolume(mainVolumeId, (float)mainSlider.Value);};
 		// musicSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/MusicSlider");
 		// musicSlider.DragEnded += b =>{ if (b) SetVolume(musicId, (float)musicSlider.Value);};
 		// sfxSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/SfxSlider");
 		// sfxSlider.DragEnded += b =>{ if (b) SetVolume(sfxId, (float)sfxSlider.Value);};
-		// fullscreenCheckbox = GetNode<CheckBox>("HBoxContainer/VBoxContainer/FullscreenCheckBox");
-		// fullscreenCheckbox.Toggled += b => { SetFullscreen(b);};
+		// fullscreen = GetNode<CheckButton>("HBoxContainer/VBoxContainer/Fullscreen");
+		// fullscreen.Toggled += b => { SetFullscreen(b);};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
     {
         base.OnWake();
+		// mainSlider.Value = GetVolume(mainVolumeId);
 		// musicSlider.Value = GetVolume(musicId);
 		// sfxSlider.Value = GetVolume(sfxId);
-		// fullscreenCheckbox.ButtonPressed = IsFullscreen();
+		// fullscreen.ButtonPressed = IsFullscreen();
     }
     static bool IsFullscreen(){
 		return DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;

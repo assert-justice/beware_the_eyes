@@ -65,7 +65,6 @@ layout_mode = 2
 text = "Quit"
 
 [node name="Options" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,6 +89,60 @@ alignment = 1
 [node name="Label" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Options"
+
+[node name="Fullscreen" type="CheckButton" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Invert" type="CheckButton" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Invert Camera"
+
+[node name="CameraSway" type="CheckButton" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Camera Sway"
+
+[node name="Label5" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="MouseSensitivity" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Movement Deadzone"
+
+[node name="MovementDeadzone" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Aim Deadzone"
+
+[node name="AimDeadzone" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Volume"
+
+[node name="MainSlider" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sfx Volume"
+
+[node name="SfxSlider" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="Back" type="Button" parent="Options/HBoxContainer/VBoxContainer"]
 layout_mode = 2
