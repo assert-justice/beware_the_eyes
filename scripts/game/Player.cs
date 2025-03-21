@@ -68,7 +68,6 @@ public partial class Player : Actor
 				var settings = Globals.Instance.GetSettings();
 				float mouseSensitivity = settings.MouseSensitivity;
 				var motion = mouseMotion.Relative * mouseSensitivity * 0.001f;
-				if(settings.InvertCamera) motion.Y = -motion.Y;
 				ChangeCameraYaw(-motion.X);
 				ChangeCameraPitch(-motion.Y);
 			}
@@ -226,6 +225,7 @@ public partial class Player : Actor
 		CurrentWeapon = weapon;
 	}
 	void ChangeCameraPitch(float da){
+		if(Globals.Instance.GetSettings().InvertCamera) da = -da;
 		Vector3 cameraRotation = camera.Rotation;
 		cameraRotation.X = Mathf.Clamp(cameraRotation.X + da, minCameraAngle, maxCameraAngle);
 		camera.Rotation = cameraRotation;

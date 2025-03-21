@@ -41,9 +41,6 @@ public class PlayerInput{
             weaponSelected[2] = Input.IsActionJustPressed("pad_wep_3");
             weaponSelected[3] = Input.IsActionJustPressed("pad_wep_4");
         }
-        if(Globals.Instance.GetSettings().InvertCamera){
-            aim.Y = -aim.Y;
-        }
     }
     public Vector2 GetMove(){return move;}
     public Vector2 GetAim(){return aim;}
