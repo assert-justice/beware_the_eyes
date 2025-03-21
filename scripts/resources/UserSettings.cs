@@ -9,4 +9,5 @@ public partial class UserSettings: Resource{
     public float MusicVolume = 1;
     public bool Fullscreen = false;
     public bool CameraSway = true;
+    public bool InvertCamera = false;
 }

@@ -95,7 +95,6 @@ layout_mode = 2
 text = "Fullscreen"
 
 [node name="Invert" type="CheckButton" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Invert Camera"
 

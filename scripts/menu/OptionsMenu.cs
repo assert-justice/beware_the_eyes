@@ -29,15 +29,21 @@ public partial class OptionsMenu: Menu{
 			SetFullscreen(b);
 			settings.Fullscreen = b;
 		};
+		invert = GetNode<CheckButton>("HBoxContainer/VBoxContainer/Invert");
+		invert.Toggled += b => {
+			settings.InvertCamera = b;
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
     {
         base.OnWake();
+		var settings = Globals.Instance.GetSettings();
 		// mainSlider.Value = GetVolume(mainVolumeId);
 		// musicSlider.Value = GetVolume(musicId);
 		// sfxSlider.Value = GetVolume(sfxId);
 		fullscreen.ButtonPressed = IsFullscreen();
+		invert.ButtonPressed = settings.InvertCamera;
     }
     public override void OnSleep()
     {

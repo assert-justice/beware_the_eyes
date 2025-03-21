@@ -65,8 +65,10 @@ public partial class Player : Actor
 	{
 		if(Input.MouseMode == Input.MouseModeEnum.Captured && Globals.Instance.UseKeyboard){
 			if (@event is InputEventMouseMotion mouseMotion){
-				float mouseSensitivity = Globals.Instance.GetSettings().MouseSensitivity;
+				var settings = Globals.Instance.GetSettings();
+				float mouseSensitivity = settings.MouseSensitivity;
 				var motion = mouseMotion.Relative * mouseSensitivity * 0.001f;
+				if(settings.InvertCamera) motion.Y = -motion.Y;
 				ChangeCameraYaw(-motion.X);
 				ChangeCameraPitch(-motion.Y);
 			}
