@@ -11,6 +11,9 @@ public partial class PauseMenu: Menu{
 		GetNode<Button>("HBoxContainer/VBoxContainer/Options").ButtonDown += ()=>{
 			menuSystem.PushMenu("Options");
 		};
+		GetNode<Button>("HBoxContainer/VBoxContainer/MainMenu").ButtonDown += ()=>{
+			menuSystem.PushMenu("Main");
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Quit").ButtonDown += ()=>{
 			GetTree().Quit();
 		};
