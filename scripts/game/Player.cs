@@ -5,9 +5,9 @@ public partial class Player : Actor
 {
 	[Export] PackedScene SparkleScene;
 	[ExportGroup("PowerUps")]
-	[Export] bool doubleJumpEnabled = true;
-	[Export] bool dashEnabled = true;
-	[Export] bool jetPackEnabled = true;
+	[Export] bool doubleJumpEnabled = false;
+	[Export] bool dashEnabled = false;
+	[Export] bool jetPackEnabled = false;
 	[Export] int maxAirJumps = 1;
 	[Export] float dashTime = 0.5f;
 	[Export] float dashSpeed = 15.0f;

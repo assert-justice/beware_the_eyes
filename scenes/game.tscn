@@ -1,8 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://csvukd1y5q4sf"]
 
-[ext_resource type="PackedScene" uid="uid://b08oqafo2jphi" path="res://scenes/maps/test_map.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://cd02tqnmfbhhn" path="res://scenes/maps/demo_map.tscn" id="1_uwrxv"]
 
 [node name="Game" type="Node3D" groups=["Game"]]
 
-[node name="TestMap" parent="." instance=ExtResource("1_uwrxv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040397, 0, -0.0483665)
+[node name="DemoMap" parent="." instance=ExtResource("1_uwrxv")]
