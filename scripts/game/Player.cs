@@ -42,10 +42,13 @@ public partial class Player : Actor
 	Vector3 nextVelocity = new();
 	Node3D hardPoint;
 	Weapon CurrentWeapon = null;
+	MenuSystem menuSystem;
 
 	public override void _Ready()
 	{
 		base._Ready();
+		var temp = GetTree().GetNodesInGroup("MenuSystem");
+		if(temp.Count > 0) menuSystem = temp[0] as MenuSystem;
 		camera = GetNode<Camera3D>("Camera3D");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		hardPoint = GetNode<Node3D>("Camera3D/Hardpoint");
@@ -56,7 +59,7 @@ public partial class Player : Actor
 		dashClock = AddClock(dashTime, 0);
 		sparklePool = AddPool(GetParent(), ()=>{return SparkleScene.Instantiate<Entity>();});
 		// TODO: handle elsewhere
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+		if(menuSystem == null) Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 	public override void _Input(InputEvent @event)
 	{
@@ -98,17 +101,11 @@ public partial class Player : Actor
 			};
 			CurrentWeapon?.TryFire(command);
 		}
-		// if(playerInput.FireJustPressed()){
-		// 	if(rayCast.IsColliding()){
-		// 		// var target = rayCast.GetCollider();
-		// 		var point = rayCast.GetCollisionPoint();
-		// 		var s = sparklePool.GetPool().GetNew();
-		// 		s.Position = point;
-		// 		notification.AddMessage("fire!");
-		// 	}
-		// }
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
-		if(playerInput.PauseJustPressed()) GetTree().Quit();
+		if(playerInput.PauseJustPressed()){
+			if(menuSystem != null) menuSystem.CallDeferred("Pause", true);
+			else GetTree().Quit();
+		}
 		Vector3 velocity = Velocity;
 		if(IsOnFloor()){}
 		else if(dashClock.IsRunning()){}

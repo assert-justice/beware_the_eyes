@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5yqff5y3556q"]
+
+[ext_resource type="Script" uid="uid://bcjucpaao0kt6" path="res://scripts/menu/MenuSystem.cs" id="1_yqeox"]
+[ext_resource type="Script" uid="uid://bclyvcqc2aop2" path="res://scripts/menu/MainMenu.cs" id="2_con2f"]
+[ext_resource type="PackedScene" uid="uid://csvukd1y5q4sf" path="res://scenes/game.tscn" id="2_mhnvy"]
+[ext_resource type="Script" uid="uid://cgsco4sjeuykr" path="res://scripts/menu/OptionsMenu.cs" id="3_mhnvy"]
+[ext_resource type="Script" uid="uid://b5iq31w7ek0ex" path="res://scripts/menu/PauseMenu.cs" id="5_4ytvr"]
+
+[node name="MenuSystem" type="Control" groups=["MenuSystem"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqeox")
+GameScene = ExtResource("2_mhnvy")
+
+[node name="GameHolder" type="Node" parent="."]
+process_mode = 1
+
+[node name="Main" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_con2f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Beware the Eyes"
+
+[node name="NewGame" type="Button" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="LoadGame" type="Button" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Load Game"
+
+[node name="Options" type="Button" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="Main/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Options" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_mhnvy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Back" type="Button" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="Pause" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_4ytvr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Pause/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+
+[node name="Resume" type="Button" parent="Pause/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="Pause/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="Pause/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
