@@ -11,6 +11,7 @@ public class PlayerInput{
     bool fireJustPressed;
     bool[] weaponSelected = [false, false, false, false];
     public void Poll(){
+        var settings = Globals.Instance.UserSettings;
         if(Globals.Instance.UseKeyboard){
             move = Input.GetVector("kb_move_left", "kb_move_right", "kb_move_up", "kb_move_down");
             if(move.Length() > 0) move = move.Normalized();
@@ -28,8 +29,10 @@ public class PlayerInput{
             weaponSelected[3] = Input.IsActionJustPressed("kb_wep_4");
         }
         else{
-            move = Input.GetVector("pad_move_left", "pad_move_right", "pad_move_up", "pad_move_down");
-            aim = Input.GetVector("pad_aim_left", "pad_aim_right", "pad_aim_up", "pad_aim_down");
+            move = Input.GetVector("pad_move_left", "pad_move_right", "pad_move_up", "pad_move_down", 0);
+            aim = Input.GetVector("pad_aim_left", "pad_aim_right", "pad_aim_up", "pad_aim_down", 0);
+            move = SmoothStick(move, settings.MoveDeadzone);
+            aim = SmoothStick(aim, settings.AimDeadzone);
             jumpJustPressed = Input.IsActionJustPressed("pad_jump");
             jumpPressed = Input.IsActionPressed("pad_jump");
             pauseJustPressed = Input.IsActionJustPressed("pad_pause");
@@ -52,5 +55,15 @@ public class PlayerInput{
     public bool FireJustPressed(){return fireJustPressed;}
     public bool[] GetWeaponMask(){
         return weaponSelected;
+    }
+    static Vector2 SmoothStick(Vector2 value, float deadzone){
+        float len = value.Length();
+        if(len < deadzone) value *= 0;
+        else if(len > 1) value = value.Normalized();
+        else{
+            float fixedLen = (len - deadzone)/(1 - deadzone);
+            value = value.Normalized() * fixedLen;
+        }
+        return value;
     }
 }

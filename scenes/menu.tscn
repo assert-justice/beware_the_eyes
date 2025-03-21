@@ -110,21 +110,17 @@ text = "Mouse Sensitivity"
 layout_mode = 2
 
 [node name="Label6" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Movement Deadzone"
 
-[node name="MovementDeadzone" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
+[node name="MoveDeadzone" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label7" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Aim Deadzone"
 
 [node name="AimDeadzone" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="Options/HBoxContainer/VBoxContainer"]

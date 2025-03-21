@@ -6,6 +6,8 @@ public partial class OptionsMenu: Menu{
 	HSlider musicSlider;
 	HSlider sfxSlider;
 	HSlider mouseSensitivity;
+	HSlider aimDeadzone;
+	HSlider moveDeadzone;
 	CheckButton fullscreen;
 	CheckButton invert;
 	CheckButton cameraRoll;
@@ -44,6 +46,18 @@ public partial class OptionsMenu: Menu{
 			float value = (float)mouseSensitivity.Value / 100;
 			settings.MouseSensitivity = value;
 		};
+		aimDeadzone = GetNode<HSlider>("HBoxContainer/VBoxContainer/AimDeadzone");
+		aimDeadzone.DragEnded += b => {
+			if(!b)return;
+			float value = (float)aimDeadzone.Value / 100;
+			settings.AimDeadzone = value;
+		};
+		moveDeadzone = GetNode<HSlider>("HBoxContainer/VBoxContainer/MoveDeadzone");
+		moveDeadzone.DragEnded += b => {
+			if(!b)return;
+			float value = (float)moveDeadzone.Value / 100;
+			settings.MoveDeadzone = value;
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
@@ -57,6 +71,8 @@ public partial class OptionsMenu: Menu{
 		invert.ButtonPressed = settings.InvertCamera;
 		cameraRoll.ButtonPressed = settings.CameraRoll;
 		mouseSensitivity.Value = settings.MouseSensitivity * 100;
+		aimDeadzone.Value = settings.AimDeadzone * 100;
+		moveDeadzone.Value = settings.MoveDeadzone * 100;
     }
     public override void OnSleep()
     {
