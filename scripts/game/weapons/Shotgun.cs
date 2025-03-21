@@ -3,6 +3,7 @@ using Godot;
 public partial class Shotgun : Weapon
 {
 	[Export] float FireTime = 0.5f;
+	[Export] float Damage = 50;
 	[Export] PackedScene SparkleScene;
 	Clock fireClock;
 	EntPool sparklePool;
@@ -18,12 +19,15 @@ public partial class Shotgun : Weapon
 		return command.JustPressed;
 	}
 	override protected void Fire(FireCommand command){
-		GD.Print("fire!");
 		fireClock.Reset();
 		if(command.Ray.IsColliding()){
 			var pos = command.Ray.GetCollisionPoint();
 			var s = sparklePool.GetPool().GetNew();
 			s.Position = pos;
+			if(command.Ray.GetCollider() is Actor actor){
+				GD.Print("here!");
+				actor.Damage(Damage);
+			}
 		}
 	}
 }
