@@ -7,7 +7,7 @@ public partial class OptionsMenu: Menu{
 	HSlider sfxSlider;
 	CheckButton fullscreen;
 	CheckButton invert;
-	CheckButton cameraSway;
+	CheckButton cameraRoll;
 	int mainVolumeId;
 	int musicId;
 	int sfxId;
@@ -33,6 +33,10 @@ public partial class OptionsMenu: Menu{
 		invert.Toggled += b => {
 			settings.InvertCamera = b;
 		};
+		cameraRoll = GetNode<CheckButton>("HBoxContainer/VBoxContainer/CameraRoll");
+		cameraRoll.Toggled += b => {
+			settings.CameraRoll = b;
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
@@ -44,6 +48,7 @@ public partial class OptionsMenu: Menu{
 		// sfxSlider.Value = GetVolume(sfxId);
 		fullscreen.ButtonPressed = IsFullscreen();
 		invert.ButtonPressed = settings.InvertCamera;
+		cameraRoll.ButtonPressed = settings.CameraRoll;
     }
     public override void OnSleep()
     {

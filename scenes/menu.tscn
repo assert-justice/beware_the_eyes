@@ -98,10 +98,9 @@ text = "Fullscreen"
 layout_mode = 2
 text = "Invert Camera"
 
-[node name="CameraSway" type="CheckButton" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
+[node name="CameraRoll" type="CheckButton" parent="Options/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Camera Sway"
+text = "Camera Roll"
 
 [node name="Label5" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
 visible = false
