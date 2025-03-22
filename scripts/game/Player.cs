@@ -68,7 +68,7 @@ public partial class Player : Actor
 			if (@event is InputEventMouseMotion mouseMotion){
 				var settings = Globals.Instance.GetSettings();
 				float mouseSensitivity = settings.MouseSensitivity;
-				var motion = mouseMotion.Relative * mouseSensitivity * 0.001f;
+				var motion = mouseMotion.Relative * mouseSensitivity * 0.01f;
 				ChangeCameraYaw(-motion.X);
 				ChangeCameraPitch(-motion.Y);
 			}
