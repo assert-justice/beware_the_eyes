@@ -43,6 +43,7 @@ public partial class Player : Actor
 	Node3D hardPoint;
 	Weapon CurrentWeapon = null;
 	MenuSystem menuSystem;
+	AudioStreamPlayer3D jumpSound;
 
 	public override void _Ready()
 	{
@@ -53,12 +54,12 @@ public partial class Player : Actor
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		hardPoint = GetNode<Node3D>("Camera3D/Hardpoint");
 		hud = GetNode<Label>("Camera3D/Control/Label");
+		jumpSound = GetNode<AudioStreamPlayer3D>("JumpSound");
 		notification = GetNode<Notification>("Camera3D/Control/Notification");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
 		sparklePool = AddPool(GetParent(), ()=>{return SparkleScene.Instantiate<Entity>();});
-		// TODO: handle elsewhere
 		if(menuSystem == null) Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 	public override void _Input(InputEvent @event)
@@ -132,6 +133,7 @@ public partial class Player : Actor
 			velocity.Y = JumpVelocity;
 			groundClock.Finish();
 			jumpClock.Finish();
+			jumpSound.Play();
 		}
 		// Handle Dash
 		bool shouldDash = false;

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5yqff5y3556q"]
+[gd_scene load_steps=7 format=3 uid="uid://b5yqff5y3556q"]
 
 [ext_resource type="Script" uid="uid://bcjucpaao0kt6" path="res://scripts/menu/MenuSystem.cs" id="1_yqeox"]
 [ext_resource type="Script" uid="uid://bclyvcqc2aop2" path="res://scripts/menu/MainMenu.cs" id="2_con2f"]
 [ext_resource type="PackedScene" uid="uid://csvukd1y5q4sf" path="res://scenes/game.tscn" id="2_mhnvy"]
+[ext_resource type="AudioStream" uid="uid://co14kvqnkr6pg" path="res://music/b423b42.wav" id="3_g3eks"]
 [ext_resource type="Script" uid="uid://cgsco4sjeuykr" path="res://scripts/menu/OptionsMenu.cs" id="3_mhnvy"]
 [ext_resource type="Script" uid="uid://b5iq31w7ek0ex" path="res://scripts/menu/PauseMenu.cs" id="5_4ytvr"]
 
@@ -19,6 +20,11 @@ GameScene = ExtResource("2_mhnvy")
 
 [node name="GameHolder" type="Node" parent="."]
 process_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_g3eks")
+autoplay = true
+bus = &"Music"
 
 [node name="Main" type="Control" parent="."]
 visible = false
@@ -124,30 +130,24 @@ text = "Aim Deadzone"
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Main Volume"
 
 [node name="MainSlider" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label3" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Music Volume"
 
 [node name="MusicSlider" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label4" type="Label" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Sfx Volume"
 
 [node name="SfxSlider" type="HSlider" parent="Options/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Back" type="Button" parent="Options/HBoxContainer/VBoxContainer"]

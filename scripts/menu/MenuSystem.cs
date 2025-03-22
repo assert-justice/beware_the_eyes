@@ -10,7 +10,7 @@ public partial class MenuSystem : Control
 	{
 		gameHolder = GetNode<Node>("GameHolder");
 		Pause(true);
-		menuStack.Push(GetChild(1).Name);
+		menuStack.Push("Main");
 		SetMenu();
 	}
 	void HideMenus(){

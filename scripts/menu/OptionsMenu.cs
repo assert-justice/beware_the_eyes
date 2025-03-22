@@ -18,15 +18,9 @@ public partial class OptionsMenu: Menu{
 	{
 		base._Ready();
 		var settings = Globals.Instance.GetSettings();
-		// mainVolumeId = AudioServer.GetBusIndex("Master");
-		// musicId = AudioServer.GetBusIndex("Music");
-		// sfxId = AudioServer.GetBusIndex("Sfx");
-		// mainSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/MusicSlider");
-		// mainSlider.DragEnded += b =>{ if (b) SetVolume(mainVolumeId, (float)mainSlider.Value);};
-		// musicSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/MusicSlider");
-		// musicSlider.DragEnded += b =>{ if (b) SetVolume(musicId, (float)musicSlider.Value);};
-		// sfxSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/SfxSlider");
-		// sfxSlider.DragEnded += b =>{ if (b) SetVolume(sfxId, (float)sfxSlider.Value);};
+		mainVolumeId = AudioServer.GetBusIndex("Master");
+		musicId = AudioServer.GetBusIndex("Music");
+		sfxId = AudioServer.GetBusIndex("Sfx");
 		fullscreen = GetNode<CheckButton>("HBoxContainer/VBoxContainer/Fullscreen");
 		fullscreen.Toggled += b => { 
 			SetFullscreen(b);
@@ -58,21 +52,42 @@ public partial class OptionsMenu: Menu{
 			float value = (float)moveDeadzone.Value / 100;
 			settings.MoveDeadzone = value;
 		};
+		mainSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/MainSlider");
+		mainSlider.DragEnded += b =>{
+			if (!b) return;
+			float value = (float)mainSlider.Value / 100;
+			SetVolume(mainVolumeId, value);
+			settings.MainVolume = value;
+		};
+		musicSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/MusicSlider");
+		musicSlider.DragEnded += b =>{
+			if (!b) return;
+			float value = (float)musicSlider.Value / 100;
+			SetVolume(musicId, value);
+			settings.MusicVolume = value;
+		};		
+		sfxSlider = GetNode<HSlider>("HBoxContainer/VBoxContainer/SfxSlider");
+		sfxSlider.DragEnded += b =>{
+			if (!b) return;
+			float value = (float)sfxSlider.Value / 100;
+			SetVolume(sfxId, value);
+			settings.SfxVolume = value;
+		};
 		GetNode<Button>("HBoxContainer/VBoxContainer/Back").ButtonDown += ()=>{menuSystem.PopMenu();};
 	}
     public override void OnWake()
     {
         base.OnWake();
 		var settings = Globals.Instance.GetSettings();
-		// mainSlider.Value = GetVolume(mainVolumeId);
-		// musicSlider.Value = GetVolume(musicId);
-		// sfxSlider.Value = GetVolume(sfxId);
 		fullscreen.ButtonPressed = IsFullscreen();
 		invert.ButtonPressed = settings.InvertCamera;
 		cameraRoll.ButtonPressed = settings.CameraRoll;
 		mouseSensitivity.Value = settings.MouseSensitivity * 100;
 		aimDeadzone.Value = settings.AimDeadzone * 100;
 		moveDeadzone.Value = settings.MoveDeadzone * 100;
+		mainSlider.Value = GetVolume(mainVolumeId) * 100;
+		musicSlider.Value = GetVolume(musicId) * 100;
+		sfxSlider.Value = GetVolume(sfxId) * 100;
     }
     public override void OnSleep()
     {
@@ -87,9 +102,9 @@ public partial class OptionsMenu: Menu{
 		DisplayServer.WindowSetMode(mode); 
 	}
 	static void SetVolume(int id, float volume){
-		AudioServer.SetBusVolumeDb(id, Mathf.LinearToDb(volume / 100));
+		AudioServer.SetBusVolumeDb(id, Mathf.LinearToDb(volume));
 	}
 	static float GetVolume(int id){
-		return Mathf.DbToLinear(AudioServer.GetBusVolumeDb(id)) * 100;
+		return Mathf.DbToLinear(AudioServer.GetBusVolumeDb(id));
 	}
 }
