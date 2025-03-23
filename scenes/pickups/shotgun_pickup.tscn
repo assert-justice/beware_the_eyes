@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cy6umvgm21gyr"]
+[gd_scene load_steps=5 format=3 uid="uid://cy6umvgm21gyr"]
 
 [ext_resource type="Script" uid="uid://d2sv658e5rxo1" path="res://scripts/game/Pickup.cs" id="1_va48h"]
 [ext_resource type="ArrayMesh" uid="uid://t5rc6543yn44" path="res://models/unnamed.obj" id="2_va48h"]
+[ext_resource type="AudioStream" uid="uid://c2uktpok45ymi" path="res://sfx/pkup.wav" id="3_2awc8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_y0p18"]
 
@@ -17,3 +18,6 @@ mesh = ExtResource("2_va48h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_y0p18")
+
+[node name="PickupSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_2awc8")

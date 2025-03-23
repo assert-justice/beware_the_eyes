@@ -2,8 +2,8 @@ using Godot;
 
 public partial class Shotgun : Weapon
 {
-	[Export] float FireTime = 1.5f;
-	[Export] float AltFireTime = 0.5f;
+	[Export] float FireTime = 0.5f;
+	[Export] float AltFireTime = 1.5f;
 	[Export] float Damage = 50;
 	[Export] float DamageMul = 2;
 	[Export] PackedScene SparkleScene;
@@ -15,7 +15,10 @@ public partial class Shotgun : Weapon
 	public override void _Ready()
 	{
 		base._Ready();
-		var parent = GetTree().GetNodesInGroup("Game")[0];
+		var temp = GetTree().GetNodesInGroup("Game");
+		Node parent; 
+		if(temp.Count > 0) parent = temp[0];
+		else parent = GetTree().Root;
 		sparklePool = AddPool(parent, ()=>SparkleScene.Instantiate<Entity>());
 		fireClock = AddClock(FireTime, 0);
 		altFireClock = AddClock(AltFireTime, 0);

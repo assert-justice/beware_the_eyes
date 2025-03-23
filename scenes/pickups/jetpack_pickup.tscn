@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5ajbedtb110a"]
+[gd_scene load_steps=5 format=3 uid="uid://c5ajbedtb110a"]
 
 [ext_resource type="Script" uid="uid://d2sv658e5rxo1" path="res://scripts/game/Pickup.cs" id="1_byhw5"]
 [ext_resource type="ArrayMesh" uid="uid://bqk7vhtle2im4" path="res://models/jetpack.obj" id="1_tr42h"]
+[ext_resource type="AudioStream" uid="uid://c2uktpok45ymi" path="res://sfx/pkup.wav" id="3_24n3h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_byhw5"]
 height = 1.43334
@@ -19,3 +20,6 @@ mesh = ExtResource("1_tr42h")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.441238, 0)
 shape = SubResource("CapsuleShape3D_byhw5")
+
+[node name="PickupSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_24n3h")
