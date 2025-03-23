@@ -9,6 +9,8 @@ public class PlayerInput{
     bool dashJustPressed;
     bool firePressed;
     bool fireJustPressed;
+    bool altPressed;
+    bool altJustPressed;
     bool[] weaponSelected = [false, false, false, false];
     public void Poll(){
         var settings = Globals.Instance.UserSettings;
@@ -23,6 +25,8 @@ public class PlayerInput{
             dashJustPressed = Input.IsActionJustPressed("kb_dash");
             firePressed = Input.IsActionPressed("kb_fire");
             fireJustPressed = Input.IsActionJustPressed("kb_fire");
+            altPressed = Input.IsActionPressed("kb_alt_fire");
+            altJustPressed = Input.IsActionJustPressed("kb_alt_fire");
             weaponSelected[0] = Input.IsActionJustPressed("kb_wep_1");
             weaponSelected[1] = Input.IsActionJustPressed("kb_wep_2");
             weaponSelected[2] = Input.IsActionJustPressed("kb_wep_3");
@@ -39,6 +43,8 @@ public class PlayerInput{
             dashJustPressed = Input.IsActionJustPressed("pad_dash");
             firePressed = Input.IsActionPressed("pad_fire");
             fireJustPressed = Input.IsActionJustPressed("pad_fire");
+            altPressed = Input.IsActionPressed("pad_alt_fire");
+            altJustPressed = Input.IsActionJustPressed("pad_alt_fire");
             weaponSelected[0] = Input.IsActionJustPressed("pad_wep_1");
             weaponSelected[1] = Input.IsActionJustPressed("pad_wep_2");
             weaponSelected[2] = Input.IsActionJustPressed("pad_wep_3");
@@ -53,6 +59,8 @@ public class PlayerInput{
     public bool DashJustPressed(){return dashJustPressed;}
     public bool FirePressed(){return firePressed;}
     public bool FireJustPressed(){return fireJustPressed;}
+    public bool AltPressed(){return altPressed;}
+    public bool AltJustPressed(){return altJustPressed;}
     public bool[] GetWeaponMask(){
         return weaponSelected;
     }

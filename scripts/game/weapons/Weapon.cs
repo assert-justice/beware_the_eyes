@@ -25,11 +25,9 @@ public abstract partial class Weapon : Node3D
         pools.Add(pool);
         return pool;
     }
-    public abstract bool CanFire(FireCommand command);
-    protected abstract void Fire(FireCommand command);
-    public void TryFire(FireCommand command){
-        if(CanFire(command)) Fire(command);
-    }
+    // public abstract bool CanFire(FireCommand command);
+    // protected abstract void Fire(FireCommand command);
+    public abstract void TryFire(FireCommand command);
     public virtual void Mount(){
         Visible = true;
     }

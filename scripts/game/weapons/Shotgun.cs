@@ -14,20 +14,29 @@ public partial class Shotgun : Weapon
 		fireClock = AddClock(FireTime, 0);
 		sparklePool = AddPool(parent, ()=>SparkleScene.Instantiate<Entity>());
 	}
-	override public bool CanFire(FireCommand command){
-		if(fireClock.IsRunning()) return false;
-		return command.JustPressed;
+	public override void TryFire(FireCommand command)
+	{
+		if(CanFire(command)) Fire(command);
+		else if(CanAltFire(command)) AltFire(command);
 	}
-	override protected void Fire(FireCommand command){
+	bool CanFire(FireCommand command){
+		if(fireClock.IsRunning()) return false;
+		return command.FireJustPressed;
+	}
+	bool CanAltFire(FireCommand command){
+		if(fireClock.IsRunning()) return false;
+		return command.AltJustPressed;
+	}
+	void Fire(FireCommand command){
 		fireClock.Reset();
 		if(command.Ray.IsColliding()){
 			var pos = command.Ray.GetCollisionPoint();
 			var s = sparklePool.GetPool().GetNew();
 			s.Position = pos;
 			if(command.Ray.GetCollider() is Actor actor){
-				GD.Print("here!");
 				actor.Damage(Damage);
 			}
 		}
 	}
+	void AltFire(FireCommand command){}
 }

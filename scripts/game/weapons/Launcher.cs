@@ -2,8 +2,8 @@ using Godot;
 
 public partial class Launcher : Weapon
 {
-	override public bool CanFire(FireCommand command){
-		return true;
+	public override void TryFire(FireCommand command)
+	{
+		throw new System.NotImplementedException();
 	}
-	override protected void Fire(FireCommand command){}
 }

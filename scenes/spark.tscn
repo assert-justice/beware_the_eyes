@@ -21,4 +21,5 @@ initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_vit8h")

@@ -99,15 +99,16 @@ public partial class Player : Actor
 			if(weaponSelected[i]) SetWeapon(i);
 		}
 		Vector2 inputDir = playerInput.GetMove();
-		if(playerInput.FirePressed()){
-			FireCommand command = new()
-			{
-				Team = Team,
-				Ray = rayCast,
-				JustPressed = playerInput.FireJustPressed(),
-			};
-			CurrentWeapon?.TryFire(command);
-		}
+		FireCommand command = new()
+		{
+			Team = Team,
+			Ray = rayCast,
+			FirePressed = playerInput.FirePressed(),
+			FireJustPressed = playerInput.FireJustPressed(),
+			AltPressed = playerInput.AltPressed(),
+			AltJustPressed = playerInput.AltJustPressed(),
+		};
+		CurrentWeapon?.TryFire(command);
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()){
 			if(menuSystem != null) {
