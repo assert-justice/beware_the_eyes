@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7rj4brd2p3tp"]
+[gd_scene load_steps=6 format=3 uid="uid://c7rj4brd2p3tp"]
 
 [ext_resource type="Script" uid="uid://elhrmpkdoa44" path="res://scripts/game/weapons/Shotgun.cs" id="1_0frcf"]
 [ext_resource type="ArrayMesh" uid="uid://t5rc6543yn44" path="res://models/unnamed.obj" id="1_lbead"]
 [ext_resource type="PackedScene" uid="uid://b4wgbaxjbnxw0" path="res://scenes/spark.tscn" id="2_278ir"]
+[ext_resource type="AudioStream" uid="uid://dadla8ryv70sb" path="res://sfx/sgun1.wav" id="4_qn8fy"]
+[ext_resource type="AudioStream" uid="uid://b4iiihhqj0bfh" path="res://sfx/shotgn2.wav" id="5_xtykv"]
 
 [node name="Shotgun" type="Node3D"]
 script = ExtResource("1_0frcf")
@@ -12,3 +14,9 @@ SparkleScene = ExtResource("2_278ir")
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 layers = 2
 mesh = ExtResource("1_lbead")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_xtykv")
+
+[node name="AltFireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_qn8fy")
