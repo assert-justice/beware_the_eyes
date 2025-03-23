@@ -37,25 +37,30 @@ public partial class Player : Actor
 	Clock jumpClock;
 	Clock dashClock;
 	EntPool sparklePool;
-	Label hud;
+	Label hudLabel;
 	Notification notification;
 	Vector3 nextVelocity = new();
 	Node3D hardPoint;
 	Weapon CurrentWeapon = null;
 	MenuSystem menuSystem;
 	AudioStreamPlayer3D jumpSound;
+	Control hud;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		var temp = GetTree().GetNodesInGroup("MenuSystem");
-		if(temp.Count > 0) menuSystem = temp[0] as MenuSystem;
+		if(temp.Count > 0) {
+			menuSystem = temp[0] as MenuSystem;
+			menuSystem.resumeCallback = ()=>hud.Visible = true;
+		}
 		camera = GetNode<Camera3D>("Camera3D");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		hardPoint = GetNode<Node3D>("Camera3D/Hardpoint");
-		hud = GetNode<Label>("Camera3D/Control/Label");
+		hudLabel = GetNode<Label>("Camera3D/Hud/Label");
+		hud = GetNode<Control>("Camera3D/Hud");
 		jumpSound = GetNode<AudioStreamPlayer3D>("JumpSound");
-		notification = GetNode<Notification>("Camera3D/Control/Notification");
+		notification = GetNode<Notification>("Camera3D/Hud/Notification");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
@@ -105,7 +110,10 @@ public partial class Player : Actor
 		}
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()){
-			if(menuSystem != null) menuSystem.CallDeferred("Pause", true);
+			if(menuSystem != null) {
+				menuSystem.CallDeferred("Pause", true);
+				hud.Visible = false;
+			}
 			else GetTree().Quit();
 		}
 		Vector3 velocity = Velocity;
@@ -119,7 +127,7 @@ public partial class Player : Actor
 		else{
 			velocity += GetGravity() * dt;
 		}
-
+SetHud();
 		// Handle Jump.
 		bool shouldJump = false;
 		if(jumpClock.IsRunning()){
@@ -244,6 +252,6 @@ public partial class Player : Actor
 	}
 	void SetHud(){
 		int fuel = Mathf.FloorToInt(jetPackFuel * 100);
-		hud.Text = $"Health: {Health}\nAmmo: {100}\nFuel: {fuel}";
+		hudLabel.Text = $"Health: {Health}\nAmmo: {100}\nFuel: {fuel}";
 	}
 }

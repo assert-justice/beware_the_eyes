@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public partial class MenuSystem : Control
@@ -6,6 +7,7 @@ public partial class MenuSystem : Control
 	[Export] PackedScene GameScene;
 	Stack<string> menuStack = new();
 	Node gameHolder;
+	public Action resumeCallback = ()=>{};
 	public override void _Ready()
 	{
 		gameHolder = GetNode<Node>("GameHolder");
@@ -53,6 +55,7 @@ public partial class MenuSystem : Control
 		else{
 			HideMenus();
 			Input.MouseMode = Input.MouseModeEnum.Captured;
+			resumeCallback();
 		}
 	}
 }

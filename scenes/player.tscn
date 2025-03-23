@@ -39,7 +39,7 @@ visible = false
 [node name="Zapper" parent="Camera3D/Hardpoint" instance=ExtResource("6_y4r1p")]
 visible = false
 
-[node name="Control" type="Control" parent="Camera3D"]
+[node name="Hud" type="Control" parent="Camera3D"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Camera3D/Control"]
+[node name="Label" type="Label" parent="Camera3D/Hud"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -60,7 +60,7 @@ text = "Health: 100
 Ammo: 100
 Fuel: 100"
 
-[node name="TextureRect" type="TextureRect" parent="Camera3D/Control"]
+[node name="TextureRect" type="TextureRect" parent="Camera3D/Hud"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -76,7 +76,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_g2els")
 
-[node name="Notification" type="Label" parent="Camera3D/Control"]
+[node name="Notification" type="Label" parent="Camera3D/Hud"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
