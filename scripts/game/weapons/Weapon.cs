@@ -7,6 +7,7 @@ public abstract partial class Weapon : Node3D
     bool Enabled = false;
     List<Clock> clocks = [];
     List<EntPool> pools = [];
+    protected Actor actor;
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
@@ -20,7 +21,7 @@ public abstract partial class Weapon : Node3D
         clocks.Add(clock);
         return clock;
     }
-    public EntPool AddPool(Node parent, Func<Entity> fn){
+    protected EntPool AddPool(Node parent, Func<Entity> fn){
         EntPool pool = new(parent, fn);
         pools.Add(pool);
         return pool;
@@ -36,4 +37,7 @@ public abstract partial class Weapon : Node3D
     }
     public bool IsEnabled(){return Enabled;}
     public void Enable(){Enabled = true;}
+    public void SetActor(Actor a){
+        actor = a;
+    }
 }

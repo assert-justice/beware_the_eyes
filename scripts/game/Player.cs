@@ -24,6 +24,7 @@ public partial class Player : Actor
 	[Export] float minCameraAngle = -1;
 	[Export] float maxCameraAngle = 1;
 	[Export] float fov = 75.0f;
+	[Export] float zoomFov = 30.0f;
 	[Export] float dashFovScale = 0.9f;
 	[Export] float maxTiltAngle = 0.04f;
 	[Export] float tiltAngleSpeed = 0.5f;
@@ -36,7 +37,6 @@ public partial class Player : Actor
 	Clock groundClock;
 	Clock jumpClock;
 	Clock dashClock;
-	EntPool sparklePool;
 	Label hudLabel;
 	Notification notification;
 	Vector3 nextVelocity = new();
@@ -57,6 +57,10 @@ public partial class Player : Actor
 		camera = GetNode<Camera3D>("Camera3D");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 		hardPoint = GetNode<Node3D>("Camera3D/Hardpoint");
+		foreach (var c in hardPoint.GetChildren())
+		{
+			if(c is Weapon w)w.SetActor(this);
+		}
 		hudLabel = GetNode<Label>("Camera3D/Hud/Label");
 		hud = GetNode<Control>("Camera3D/Hud");
 		jumpSound = GetNode<AudioStreamPlayer3D>("JumpSound");
@@ -64,7 +68,6 @@ public partial class Player : Actor
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
 		dashClock = AddClock(dashTime, 0);
-		sparklePool = AddPool(GetParent(), ()=>{return SparkleScene.Instantiate<Entity>();});
 		if(menuSystem == null) Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 	public override void _Input(InputEvent @event)
@@ -83,9 +86,14 @@ public partial class Player : Actor
 	public override void _PhysicsProcess(double delta)
 	{
 		float dt = (float)delta;
-		float minFov = fov * dashFovScale;
-		float fovDiff = (fov - minFov) * dashClock.GetProgress();
-		camera.Fov = minFov + fovDiff;
+		if(IsZoomed){
+			camera.Fov = zoomFov;
+		}
+		else{
+			float minFov = fov * dashFovScale;
+			float fovDiff = (fov - minFov) * dashClock.GetProgress();
+			camera.Fov = minFov + fovDiff;
+		}
 		if(IsOnFloor()) {
 			groundClock.Reset();
 			airJumps = maxAirJumps;
@@ -107,6 +115,7 @@ public partial class Player : Actor
 			FireJustPressed = playerInput.FireJustPressed(),
 			AltPressed = playerInput.AltPressed(),
 			AltJustPressed = playerInput.AltJustPressed(),
+			Player = this,
 		};
 		CurrentWeapon?.TryFire(command);
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
@@ -128,7 +137,6 @@ public partial class Player : Actor
 		else{
 			velocity += GetGravity() * dt;
 		}
-SetHud();
 		// Handle Jump.
 		bool shouldJump = false;
 		if(jumpClock.IsRunning()){

@@ -8,6 +8,7 @@ public abstract partial class Actor : CharacterBody3D
     List<EntPool> pools = [];
     protected float Health = 100;
     protected int Team = 0;
+    public bool IsZoomed = false;
     public Clock AddClock(float fullDuration, float duration = -1){
         Clock c = new(fullDuration, duration);
         clocks.Add(c);
