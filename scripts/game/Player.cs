@@ -25,6 +25,7 @@ public partial class Player : Actor
 	[Export] float maxCameraAngle = 1;
 	[Export] float fov = 75.0f;
 	[Export] float zoomFov = 30.0f;
+	[Export] float zoomSensitivityMul = 0.3f;
 	[Export] float dashFovScale = 0.9f;
 	[Export] float maxTiltAngle = 0.04f;
 	[Export] float tiltAngleSpeed = 0.5f;
@@ -245,12 +246,14 @@ public partial class Player : Actor
 		CurrentWeapon = weapon;
 	}
 	void ChangeCameraPitch(float da){
+		if(IsZoomed) da *= zoomSensitivityMul;
 		if(Globals.Instance.GetSettings().InvertCamera) da = -da;
 		Vector3 cameraRotation = camera.Rotation;
 		cameraRotation.X = Mathf.Clamp(cameraRotation.X + da, minCameraAngle, maxCameraAngle);
 		camera.Rotation = cameraRotation;
 	}
 	void ChangeCameraYaw(float da){
+		if(IsZoomed) da *= zoomSensitivityMul;
 		Vector3 cameraRotation = Rotation;
 		cameraRotation.Y += da;
 		Rotation = cameraRotation;
