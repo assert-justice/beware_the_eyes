@@ -166,6 +166,7 @@ public partial class Player : Actor
 			if(inputDir.Length() == 0) dir = (Transform.Basis * Vector3.Forward).Normalized();
 			velocity = dir * dashSpeed;
 			dashClock.Reset();
+			IsZoomed = false;
 		}
 
 		Vector2 aim = playerInput.GetAim();
