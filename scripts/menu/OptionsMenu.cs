@@ -93,18 +93,19 @@ public partial class OptionsMenu: Menu{
     {
         base.OnSleep();
 		// Save settings
+		Globals.Instance.SaveSettings();
     }
     static bool IsFullscreen(){
 		return DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
 	}
-    static void SetFullscreen(bool isFullscreen){
+    public static void SetFullscreen(bool isFullscreen){
 		var mode = isFullscreen ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed;
 		DisplayServer.WindowSetMode(mode); 
 	}
-	static void SetVolume(int id, float volume){
+	public static void SetVolume(int id, float volume){
 		AudioServer.SetBusVolumeDb(id, Mathf.LinearToDb(volume));
 	}
-	static float GetVolume(int id){
+	public static float GetVolume(int id){
 		return Mathf.DbToLinear(AudioServer.GetBusVolumeDb(id));
 	}
 }

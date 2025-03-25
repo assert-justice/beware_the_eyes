@@ -10,16 +10,34 @@ public partial class Globals: Node{
     public UserSettings GetSettings(){
         return UserSettings;
     }
-    public void SaveSettings(){}
+    public void SaveSettings(){
+        ResourceSaver.Save(UserSettings, "user://settings.tres");
+    }
     public static Globals Instance{get; private set;}
     private Globals(){
-        UserSettings = new();
+        var temp = GD.Load("user://settings.tres");
+        if(temp == null) {
+            UserSettings = new();
+            SaveSettings();
+        }
+        else {
+            UserSettings = temp as UserSettings;
+            // Apply settings
+            // if(UserSettings.Fullscreen) DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+            if(UserSettings.Fullscreen) OptionsMenu.SetFullscreen(true);
+            int mainVolumeId = AudioServer.GetBusIndex("Master");
+            int musicId = AudioServer.GetBusIndex("Music");
+            int sfxId = AudioServer.GetBusIndex("Sfx");
+            OptionsMenu.SetVolume(mainVolumeId, UserSettings.MainVolume);
+            OptionsMenu.SetVolume(musicId, UserSettings.MusicVolume);
+            OptionsMenu.SetVolume(sfxId, UserSettings.SfxVolume);
+        }
         UserSaves = [new(), new(), new()];
     }
     public override void _Ready()
     {
         base._Ready();
-        Instance = new();
+        Instance = this;
     }
     public override void _Input(InputEvent @event)
     {
