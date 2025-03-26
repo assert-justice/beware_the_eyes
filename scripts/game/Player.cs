@@ -193,6 +193,11 @@ public partial class Player : Actor
 		SetHud();
 		MoveAndSlide();
 	}
+	public override void Damage(float value)
+	{
+		// base.Damage(value);
+		GD.Print($"Player damaged for {value}");
+	}
 	public bool AddPickup(PickupType pickupType){
 		switch (pickupType)
 		{

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpnayub8lwguf"]
+
+[ext_resource type="Script" uid="uid://c6yv53hc8ak24" path="res://scripts/game/weapons/Mine.cs" id="1_yym1a"]
+[ext_resource type="ArrayMesh" uid="uid://cmbpkj21emrai" path="res://models/mine.obj" id="2_m55k0"]
+[ext_resource type="AudioStream" uid="uid://bdn7vubomsabw" path="res://sfx/lstart.wav" id="3_m55k0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m55k0"]
+radius = 2.4324
+
+[node name="Mine" type="Node3D"]
+script = ExtResource("1_yym1a")
+
+[node name="Mine" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("2_m55k0")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_m55k0")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_m55k0")

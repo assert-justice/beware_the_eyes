@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvqw2dlm8scp1"]
+[gd_scene load_steps=5 format=3 uid="uid://cvqw2dlm8scp1"]
 
 [ext_resource type="Script" uid="uid://tyqpawph3q6r" path="res://scripts/game/weapons/Launcher.cs" id="1_d15xx"]
 [ext_resource type="ArrayMesh" uid="uid://dtc4h28b2ee63" path="res://models/launcher.obj" id="1_m7kno"]
+[ext_resource type="PackedScene" uid="uid://bpnayub8lwguf" path="res://scenes/mine.tscn" id="2_f0v11"]
+[ext_resource type="AudioStream" uid="uid://c2s55texnn7b8" path="res://sfx/grenade.wav" id="4_j1ura"]
 
 [node name="Launcher" type="Node3D"]
 script = ExtResource("1_d15xx")
+MineScene = ExtResource("2_f0v11")
 
 [node name="Launcher" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-10, 0, 0.01, 0, 0.01, 0, -0.01, 0, -4.37114e-10, 0, 0, 0)
 layers = 2
 mesh = ExtResource("1_m7kno")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_j1ura")

@@ -31,4 +31,10 @@ public partial class Entity : Node3D
 		pool.GetPool().Free(this);
 	}
 	public int GetTeam(){return Team;}
+	// public void SetParent(Node parent){
+	// TODO: buggy, fix it
+	// 	// if(parent == this) return;
+	// 	GetParent().RemoveChild(this);
+	// 	parent.CallDeferred("add_child", this);
+	// }
 }
