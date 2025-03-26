@@ -117,6 +117,7 @@ public partial class Player : Actor
 			AltPressed = playerInput.AltPressed(),
 			AltJustPressed = playerInput.AltJustPressed(),
 			Player = this,
+			dt = dt,
 		};
 		CurrentWeapon?.TryFire(command);
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
@@ -225,6 +226,11 @@ public partial class Player : Actor
 			case PickupType.Zapper:
 			EnableWeapon(3);
 			notification.AddMessage("Zapper Acquired!");
+			break;
+			case PickupType.ZapperAmmo:
+			if(GetWeapon(3).AddAmmo()){
+				notification.AddMessage("Charge Acquired!");
+			}
 			break;
 			case PickupType.Crossbow:
 			EnableWeapon(2);

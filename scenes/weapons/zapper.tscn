@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvdf4tfkggudi"]
+[gd_scene load_steps=6 format=3 uid="uid://bvdf4tfkggudi"]
 
 [ext_resource type="Script" uid="uid://b17yv8334ot48" path="res://scripts/game/weapons/Zapper.cs" id="1_dnnpt"]
 [ext_resource type="ArrayMesh" uid="uid://c4cnpc7lpns1d" path="res://models/zapper.obj" id="1_siiuh"]
+[ext_resource type="AudioStream" uid="uid://cdccjgav72kov" path="res://sfx/lhit.wav" id="3_v4pwr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dnnpt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4pwr"]
+albedo_color = Color(0.220833, 1, 0.15, 1)
 
 [node name="Zapper" type="Node3D"]
 script = ExtResource("1_dnnpt")
@@ -10,3 +16,12 @@ script = ExtResource("1_dnnpt")
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 layers = 2
 mesh = ExtResource("1_siiuh")
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, -3.48579)
+layers = 2
+mesh = SubResource("BoxMesh_dnnpt")
+surface_material_override/0 = SubResource("StandardMaterial3D_v4pwr")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_v4pwr")

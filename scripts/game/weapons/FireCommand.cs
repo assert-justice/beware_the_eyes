@@ -7,4 +7,5 @@ public class FireCommand{
     public bool AltPressed;
     public bool AltJustPressed;
     public Player Player;
+    public float dt;
 }
