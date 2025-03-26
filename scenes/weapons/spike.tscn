@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8kwo2jp7tqrj"]
 
 [ext_resource type="ArrayMesh" uid="uid://3rq0pruptej1" path="res://models/spike.obj" id="1_rk0t6"]
-[ext_resource type="Script" uid="uid://cmnu73gch65g3" path="res://scripts/game/Entity.cs" id="1_tskdu"]
+[ext_resource type="Script" uid="uid://dqp3k4ravxwjk" path="res://scripts/game/weapons/Spike.cs" id="1_tskdu"]
 
 [node name="Spike" type="Node3D"]
 script = ExtResource("1_tskdu")

@@ -225,6 +225,11 @@ public partial class Player : Actor
 			EnableWeapon(2);
 			notification.AddMessage("Crossbow Acquired!");
 			break;
+			case PickupType.CrossbowAmmo:
+			if(GetWeapon(2).AddAmmo()){
+				notification.AddMessage("Bolts Acquired!");
+			}
+			break;
 			case PickupType.Launcher:
 			EnableWeapon(1);
 			notification.AddMessage("Launcher Acquired!");

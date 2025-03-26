@@ -6,6 +6,8 @@ public partial class Crossbow : Weapon
 	[Export] float Damage = 50;
 	[Export] PackedScene SparkleScene;
 	[Export] PackedScene SpikeScene;
+	[Export] int Ammo = 6;
+	[Export] int MaxAmmo = 100;
 	Clock fireClock;
 	AudioStreamPlayer3D fireSound;
 	EntPool sparklePool;
@@ -22,7 +24,18 @@ public partial class Crossbow : Weapon
 		sparklePool = AddPool(parent, ()=>SparkleScene.Instantiate<Entity>());
 		spikePool = AddPool(parent, ()=>SpikeScene.Instantiate<Entity>());
 	}
-	public override void TryFire(FireCommand command)
+    public override string GetAmmoString()
+    {
+		return $"{Ammo}/{MaxAmmo}";
+    }
+    public override bool AddAmmo()
+    {
+		if(Ammo == MaxAmmo) return false;
+		Ammo += 6;
+		if(Ammo > MaxAmmo) Ammo = MaxAmmo;
+		return true;
+    }
+    public override void TryFire(FireCommand command)
 	{
 		// throw new System.NotImplementedException();
 		if(CanFire(command)) Fire(command);
@@ -31,18 +44,18 @@ public partial class Crossbow : Weapon
 		}
 	}
 	bool CanFire(FireCommand command){
+		if(Ammo < 1) return false;
 		if(fireClock.IsRunning()) return false;
 		return command.FireJustPressed;
 	}
-void Fire(FireCommand command){
+	void Fire(FireCommand command){
 		fireClock.Reset();
 		fireSound.Play();
+		Ammo--;
 		if(command.Ray.IsColliding()){
-			// var target = command.Ray.GetCollider() as Node;
 			var pos = command.Ray.GetCollisionPoint();
 			var s = sparklePool.GetPool().GetNew();
 			var spike = spikePool.GetPool().GetNew();
-			// target.AddChild(spike);
 			spike.Position = pos;
 			spike.GlobalRotation = GlobalRotation;
 			s.Position = pos;
@@ -50,7 +63,8 @@ void Fire(FireCommand command){
 				actor.Damage(Damage);
 			}
 		}
-	}	public override void UnMount()
+	}	
+	public override void UnMount()
 	{
 		base.UnMount();
 		actor.IsZoomed = false;

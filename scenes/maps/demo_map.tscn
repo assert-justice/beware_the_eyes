@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cd02tqnmfbhhn"]
+[gd_scene load_steps=30 format=4 uid="uid://cd02tqnmfbhhn"]
 
 [ext_resource type="Script" uid="uid://d1riv8ior488h" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_nflrl"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_qxalk"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c5ajbedtb110a" path="res://scenes/pickups/jetpack_pickup.tscn" id="10_xkuj0"]
 [ext_resource type="PackedScene" uid="uid://bq88cffacsvd8" path="res://scenes/pickups/crossbow_pickup.tscn" id="11_wkyqu"]
 [ext_resource type="PackedScene" uid="uid://cjjy7iqbu8xro" path="res://scenes/pickups/shotgun_ammo_pickup.tscn" id="12_xkuj0"]
+[ext_resource type="PackedScene" uid="uid://buniu60k5mud" path="res://scenes/pickups/crossbow_ammo_pickup.tscn" id="13_ev5kt"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_qxalk"]
 _surfaces = [{
@@ -171,3 +172,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106942, 0.159999, -0.981624
 
 [node name="ShotgunAmmoPickup" parent="." instance=ExtResource("12_xkuj0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.34306, 0.159999, 4.42679)
+
+[node name="ShotgunAmmoPickup2" parent="." instance=ExtResource("13_ev5kt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67643, 0.16, 4.9627)

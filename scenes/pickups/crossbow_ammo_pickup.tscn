@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://buniu60k5mud"]
+
+[ext_resource type="Script" uid="uid://d2sv658e5rxo1" path="res://scripts/game/Pickup.cs" id="1_ofcyt"]
+[ext_resource type="ArrayMesh" uid="uid://bfkfmj3x0qgy" path="res://models/crossbow_ammo.obj" id="2_ofcyt"]
+[ext_resource type="AudioStream" uid="uid://c2uktpok45ymi" path="res://sfx/pkup.wav" id="3_deqse"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y0p18"]
+
+[node name="ShotgunAmmoPickup" type="Node3D"]
+script = ExtResource("1_ofcyt")
+Type = 10
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("2_ofcyt")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_y0p18")
+
+[node name="PickupSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_deqse")
