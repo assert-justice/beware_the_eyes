@@ -6,6 +6,8 @@ public partial class Shotgun : Weapon
 	[Export] float AltFireTime = 1.5f;
 	[Export] float Damage = 50;
 	[Export] float DamageMul = 2;
+	[Export] int Ammo = 12;
+	[Export] int MaxAmmo = 100;
 	[Export] PackedScene SparkleScene;
 	Clock fireClock;
 	Clock altFireClock;
@@ -32,15 +34,29 @@ public partial class Shotgun : Weapon
 		if(CanFire(command)) Fire(command);
 		else if(CanAltFire(command)) AltFire(command);
 	}
-	bool CanFire(FireCommand command){
+    public override string GetAmmoString()
+    {
+		return $"{Ammo}/{MaxAmmo}";
+    }
+    public override bool AddAmmo()
+    {
+		if(Ammo == MaxAmmo) return false;
+		Ammo += 12;
+		if(Ammo > MaxAmmo) Ammo = MaxAmmo;
+		return true;
+    }
+    bool CanFire(FireCommand command){
+		if(Ammo < 1) return false;
 		return command.FireJustPressed;
 	}
 	bool CanAltFire(FireCommand command){
+		if(Ammo < 2) return false;
 		return command.AltJustPressed;
 	}
 	void Fire(FireCommand command){
 		fireClock.Reset();
 		fireSound.Play();
+		Ammo--;
 		if(command.Ray.IsColliding()){
 			var pos = command.Ray.GetCollisionPoint();
 			var s = sparklePool.GetPool().GetNew();
@@ -53,6 +69,7 @@ public partial class Shotgun : Weapon
 	void AltFire(FireCommand command){
 		altFireClock.Reset();
 		altFireSound.Play();
+		Ammo -= 2;
 		if(command.Ray.IsColliding()){
 			var pos = command.Ray.GetCollisionPoint();
 			var s = sparklePool.GetPool().GetNew();

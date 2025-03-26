@@ -8,7 +8,7 @@
 
 [node name="ZapperPickup" type="Node3D"]
 script = ExtResource("1_g8vhd")
-Type = 4
+Type = 5
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)

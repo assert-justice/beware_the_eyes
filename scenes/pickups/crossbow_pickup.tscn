@@ -8,7 +8,7 @@
 
 [node name="CrossbowPickup" type="Node3D"]
 script = ExtResource("1_v7kn3")
-Type = 6
+Type = 9
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)

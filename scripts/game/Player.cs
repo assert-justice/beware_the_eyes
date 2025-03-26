@@ -193,7 +193,7 @@ public partial class Player : Actor
 		SetHud();
 		MoveAndSlide();
 	}
-	public void AddPickup(PickupType pickupType){
+	public bool AddPickup(PickupType pickupType){
 		switch (pickupType)
 		{
 			case PickupType.Boots:
@@ -211,6 +211,11 @@ public partial class Player : Actor
 			case PickupType.Shotgun:
 			EnableWeapon(0);
 			notification.AddMessage("Shotgun Acquired!");
+			break;
+			case PickupType.ShotgunAmmo:
+			if(GetWeapon(0).AddAmmo()){
+				notification.AddMessage("Shells Acquired!");
+			}
 			break;
 			case PickupType.Zapper:
 			EnableWeapon(3);
@@ -232,6 +237,10 @@ public partial class Player : Actor
 			notification.AddMessage("Unhandled pickup type!");
 			break;
 		}
+		return true;
+	}
+	Weapon GetWeapon(int idx){
+		return hardPoint.GetChild<Weapon>(idx);
 	}
 	void EnableWeapon(int idx){
 		var weapon = hardPoint.GetChild<Weapon>(idx);
@@ -265,6 +274,8 @@ public partial class Player : Actor
 	}
 	void SetHud(){
 		int fuel = Mathf.FloorToInt(jetPackFuel * 100);
-		hudLabel.Text = $"Health: {Health}\nAmmo: {100}\nFuel: {fuel}";
+		string ammoStr = "-/-";
+		if(CurrentWeapon != null) ammoStr = CurrentWeapon.GetAmmoString();
+		hudLabel.Text = $"Health: {Health}\nAmmo: {ammoStr}\nFuel: {fuel}";
 	}
 }

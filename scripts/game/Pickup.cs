@@ -5,10 +5,15 @@ public enum PickupType{
 	JetPack,
 	Dash,
 	Shotgun,
+	ShotgunAmmo,
 	Zapper,
+	ZapperAmmo,
 	Launcher,
+	LauncherAmmo,
 	Crossbow,
+	CrossbowAmmo,
 	Axe,
+	Health,
 }
 
 public partial class Pickup : Node3D
@@ -27,10 +32,11 @@ public partial class Pickup : Node3D
 		area.BodyEntered += body=>{
 			if(used) return;
 			if(body is Player p){
-				used = true;
-				Visible = false;
-				p.AddPickup(Type);
-				pickupSound.Play();
+				if(p.AddPickup(Type)){
+					used = true;
+					Visible = false;
+					pickupSound.Play();
+				}
 			}
 		};
 		pickupSound = GetNode<AudioStreamPlayer3D>("PickupSound");

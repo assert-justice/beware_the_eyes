@@ -35,6 +35,10 @@ public abstract partial class Weapon : Node3D
     public virtual void UnMount(){
         Visible = false;
     }
+    public virtual string GetAmmoString(){
+        return "-/-";
+    }
+    public virtual bool AddAmmo(){return false;}
     public bool IsEnabled(){return Enabled;}
     public void Enable(){Enabled = true;}
     public void SetActor(Actor a){

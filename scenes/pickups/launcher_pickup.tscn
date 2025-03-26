@@ -8,7 +8,7 @@
 
 [node name="LauncherPickup" type="Node3D"]
 script = ExtResource("1_e2cvb")
-Type = 5
+Type = 7
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
