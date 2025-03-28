@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1rgtblbvly7i"]
+
+[ext_resource type="Script" uid="uid://biw1ak7aqpi45" path="res://scripts/game/enemies/Eye.cs" id="1_ipb26"]
+[ext_resource type="ArrayMesh" uid="uid://twunee4mw7gw" path="res://models/prism.obj" id="2_817ua"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yq7hr"]
+radius = 1.26178
+
+[sub_resource type="SphereMesh" id="SphereMesh_ipb26"]
+
+[node name="Eye" type="CharacterBody3D"]
+motion_mode = 1
+script = ExtResource("1_ipb26")
+
+[node name="Prism" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = ExtResource("2_817ua")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_yq7hr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.21672)
+mesh = SubResource("SphereMesh_ipb26")

@@ -53,13 +53,11 @@ public partial class Crossbow : Weapon
 		fireSound.Play();
 		Ammo--;
 		if(command.Ray.IsColliding()){
-			// var parent = command.Ray.GetCollider() as Node;
 			var pos = command.Ray.GetCollisionPoint();
 			var s = sparklePool.GetPool().GetNew();
 			var spike = spikePool.GetPool().GetNew();
 			spike.Position = pos;
 			spike.GlobalRotation = GlobalRotation;
-			// spike.SetParent(parent);
 			s.Position = pos;
 			if(command.Ray.GetCollider() is Actor actor){
 				actor.Damage(Damage);
