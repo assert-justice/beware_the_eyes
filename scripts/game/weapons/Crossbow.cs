@@ -9,17 +9,15 @@ public partial class Crossbow : Weapon
 	[Export] int MaxAmmo = 100;
 	Clock fireClock;
 	AudioStreamPlayer3D fireSound;
-	EntPool spikePool;
+	Node root;
 	public override void _Ready()
 	{
 		base._Ready();
 		fireClock = AddClock(FireTime, 0);
 		fireSound = GetNode<AudioStreamPlayer3D>("FireSound");
 		var temp = GetTree().GetNodesInGroup("Game");
-		Node parent; 
-		if(temp.Count > 0) parent = temp[0];
-		else parent = GetTree().Root;
-		spikePool = AddPool(parent, ()=>SpikeScene.Instantiate<Entity>());
+		if(temp.Count > 0) root = temp[0];
+		else root = GetTree().Root;
 	}
 	public override string GetAmmoString()
 	{
@@ -50,12 +48,16 @@ public partial class Crossbow : Weapon
 		Ammo--;
 		if(command.Ray.IsColliding()){
 			var pos = command.Ray.GetCollisionPoint();
-			var spike = spikePool.GetPool().GetNew();
-			spike.Position = pos;
-			spike.GlobalRotation = GlobalRotation;
+			var spike = SpikeScene.Instantiate<Spike>();
 			if(command.Ray.GetCollider() is Actor actor){
 				actor.Damage(Damage);
+				actor.AddChild(spike);
 			}
+			else{
+				root.AddChild(spike);
+			}
+			spike.GlobalPosition = pos;
+			spike.GlobalRotation = GlobalRotation;
 		}
 	}	
 	public override void UnMount()
