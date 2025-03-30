@@ -35,7 +35,6 @@ visible = false
 
 [node name="Crossbow" parent="Camera3D/Hardpoint" instance=ExtResource("5_ur7pv")]
 visible = false
-SparkleScene = null
 
 [node name="Zapper" parent="Camera3D/Hardpoint" instance=ExtResource("6_y4r1p")]
 visible = false
