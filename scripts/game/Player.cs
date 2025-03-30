@@ -212,9 +212,9 @@ public partial class Player : Actor
 		Position = respawnPos;
 		Health = 100;
 	}
-	public void SaveState(){
+	public void SaveState(Vector3 spawnPos){
 		notification.AddMessage("Saved!");
-		respawnPos = Position;
+		respawnPos = spawnPos;
 	}
 	public bool AddPickup(PickupType pickupType){
 		switch (pickupType)
