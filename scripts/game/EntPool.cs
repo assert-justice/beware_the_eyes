@@ -2,7 +2,7 @@ using System;
 using Godot;
 
 public class EntPool{
-    Pool<Entity> pool;
+    readonly Pool<Entity> pool;
     public EntPool(Node parent, Func<Entity> newFn){
         pool = new(()=>{
             var e = newFn();
@@ -13,9 +13,7 @@ public class EntPool{
                 parent.AddChild(e);
                 e.Init();
             },
-            FreeFn = e =>{
-                parent.RemoveChild(e);
-            }
+            FreeFn = parent.RemoveChild
         };
     }
     public Pool<Entity> GetPool(){

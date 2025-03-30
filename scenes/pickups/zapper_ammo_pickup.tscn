@@ -6,7 +6,7 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_y0p18"]
 
-[node name="ShotgunAmmoPickup" type="Node3D"]
+[node name="ZapperAmmoPickup" type="Node3D"]
 script = ExtResource("1_r7ts5")
 Type = 6
 
