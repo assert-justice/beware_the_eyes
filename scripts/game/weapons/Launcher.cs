@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class Launcher : Weapon
@@ -8,16 +9,16 @@ public partial class Launcher : Weapon
 	[Export] int MaxAmmo = 100;
 	[Export] int MaxActive = 4;
 	Clock fireClock;
-	EntPool minePool;
+	// EntPool minePool;
+	Node root;
 	AudioStreamPlayer3D fireSound;
+	List<Mine> liveMines = new();
 	public override void _Ready()
 	{
 		base._Ready();
 		var temp = GetTree().GetNodesInGroup("Game");
-		Node parent; 
-		if(temp.Count > 0) parent = temp[0];
-		else parent = GetTree().Root;
-		minePool = AddPool(parent, ()=>MineScene.Instantiate<Entity>());
+		if(temp.Count > 0) root = temp[0];
+		else root = GetTree().Root;
 		fireClock = AddClock(FireTime, 0);
 		fireSound = GetNode<AudioStreamPlayer3D>("FireSound");
 	}
@@ -40,11 +41,11 @@ public partial class Launcher : Weapon
 	bool CanFire(FireCommand command){
 		if(Ammo < 1) return false;
 		if(fireClock.IsRunning()) return false;
-		if(minePool.GetPool().CountAlive() >= MaxActive) return false;
+		if(liveMines.Count >= MaxActive) return false;
 		return command.FireJustPressed;
 	}
 	bool CanAltFire(FireCommand command){
-		if(minePool.GetPool().CountAlive() == 0) return false;
+		if(liveMines.Count == 0) return false;
 		return command.AltJustPressed;
 	}
 	void Fire(FireCommand command){
@@ -52,18 +53,24 @@ public partial class Launcher : Weapon
 		fireSound.Play();
 		Ammo--;
 		if(command.Ray.IsColliding()){
-			// var parent = command.Ray.GetCollider() as Node;
+			var parent = command.Ray.GetCollider() as Node;
 			var pos = command.Ray.GetCollisionPoint();
-			var mine = minePool.GetPool().GetNew();
-			// mine.SetParent(parent);
-			mine.Position = pos;
+			var mine = MineScene.Instantiate<Mine>();
+			if(parent is Actor actor){
+				actor.AddChild(mine);
+			}
+			else{
+				root.AddChild(mine);
+			}
+			liveMines.Add(mine);
+			mine.GlobalPosition = pos;
 		}
 	}
 	void AltFire(FireCommand command){
-		foreach (var item in minePool.GetPool().GetAlive())
+		foreach (var mine in liveMines)
 		{
-			var mine = item as Mine;
 			mine.Detonate();
 		}
+		liveMines.Clear();
 	}
 }

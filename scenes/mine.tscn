@@ -21,3 +21,4 @@ stream = ExtResource("3_m55k0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_m55k0")
+disabled = true

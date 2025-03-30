@@ -21,12 +21,16 @@ public partial class Mine : Entity
 		};
 		shape = GetNode<CollisionShape3D>("Area3D/CollisionShape3D");
 	}
-	public override void Init()
+	public override void Die()
 	{
-		base.Init();
-		Visible = true;
-		shape.Disabled = true;
+		QueueFree();
 	}
+	// public override void Init()
+	// {
+	// 	base.Init();
+	// 	Visible = true;
+	// 	shape.Disabled = true;
+	// }
 	public void Detonate(){
 		if(sound.Playing) return;
 		shape.Disabled = false;
