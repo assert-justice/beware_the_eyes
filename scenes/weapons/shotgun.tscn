@@ -17,6 +17,8 @@ mesh = ExtResource("1_lbead")
 
 [node name="FireSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_xtykv")
+bus = &"Sfx"
 
 [node name="AltFireSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_qn8fy")
+bus = &"Sfx"

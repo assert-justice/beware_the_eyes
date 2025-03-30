@@ -34,18 +34,18 @@ public partial class Shotgun : Weapon
 		if(CanFire(command)) Fire(command);
 		else if(CanAltFire(command)) AltFire(command);
 	}
-    public override string GetAmmoString()
-    {
+	public override string GetAmmoString()
+	{
 		return $"{Ammo}/{MaxAmmo}";
-    }
-    public override bool AddAmmo()
-    {
+	}
+	public override bool AddAmmo()
+	{
 		if(Ammo == MaxAmmo) return false;
 		Ammo += 12;
 		if(Ammo > MaxAmmo) Ammo = MaxAmmo;
 		return true;
-    }
-    bool CanFire(FireCommand command){
+	}
+	bool CanFire(FireCommand command){
 		if(Ammo < 1) return false;
 		return command.FireJustPressed;
 	}
