@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1rgtblbvly7i"]
+[gd_scene load_steps=12 format=3 uid="uid://d1rgtblbvly7i"]
 
 [ext_resource type="Script" uid="uid://biw1ak7aqpi45" path="res://scripts/game/enemies/Eye.cs" id="1_ipb26"]
 [ext_resource type="ArrayMesh" uid="uid://twunee4mw7gw" path="res://models/prism.obj" id="2_817ua"]
 [ext_resource type="PackedScene" uid="uid://b6ow6qjkclkyb" path="res://scenes/enemies/eye_bullet.tscn" id="2_sypwk"]
+[ext_resource type="AudioStream" uid="uid://dfhpbnfb1xuuc" path="res://sfx/eye_sounds/wattack.wav" id="4_sypwk"]
+[ext_resource type="AudioStream" uid="uid://ckwpk0xdsspg7" path="res://sfx/eye_sounds/wsight.wav" id="5_cmi2i"]
+[ext_resource type="AudioStream" uid="uid://4c467cg1tgqu" path="res://sfx/eye_sounds/wpain.wav" id="6_geckm"]
+[ext_resource type="AudioStream" uid="uid://dri322e7mgl56" path="res://sfx/eye_sounds/wdeath.wav" id="7_g2cm3"]
+[ext_resource type="AudioStream" uid="uid://djcjlps7ycx5k" path="res://sfx/eye_sounds/widle1.wav" id="8_3mvlb"]
+[ext_resource type="AudioStream" uid="uid://qiy03lsxtbnj" path="res://sfx/eye_sounds/widle2.wav" id="9_024lg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yq7hr"]
 radius = 1.26178
@@ -27,3 +33,27 @@ mesh = SubResource("SphereMesh_ipb26")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -100)
+
+[node name="WakeSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_sypwk")
+bus = &"Sfx"
+
+[node name="SeekSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_cmi2i")
+bus = &"Sfx"
+
+[node name="PainSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_geckm")
+bus = &"Sfx"
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_g2cm3")
+bus = &"Sfx"
+
+[node name="IdleSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_3mvlb")
+bus = &"Sfx"
+
+[node name="IdleSound2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_024lg")
+bus = &"Sfx"

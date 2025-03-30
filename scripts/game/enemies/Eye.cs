@@ -42,6 +42,7 @@ public partial class Eye : Actor
 		base._PhysicsProcess(delta);
 		float dt = (float)delta;
 		spaceState = GetWorld3D().DirectSpaceState;
+		var tempState = state;
 		switch (state)
 		{
 			case EyeState.Idle:
@@ -60,12 +61,22 @@ public partial class Eye : Actor
 			GD.PrintErr("Invalid eye state");
 			break;
 		}
-		lastState = state;
+		lastState = tempState;
+	}
+	public override void Damage(float value)
+	{
+		base.Damage(value);
+		if(Health >= 0) GetNode<AudioStreamPlayer3D>("PainSound").Play();
 	}
 	public override void Die()
 	{
 		base.Die();
-		QueueFree();
+		// QueueFree();
+		var sound = GetNode<AudioStreamPlayer3D>("DeathSound");
+		if(sound.Playing) return;
+		sound.Play();
+		sound.Finished += QueueFree;
+		state = EyeState.Idle;
 	}
 	float AngleToTarget(Vector3 target){
 		var a = GlobalTransform.Basis.GetRotationQuaternion();
@@ -115,6 +126,7 @@ public partial class Eye : Actor
 	void Seeking(float dt){
 		if(lastState != EyeState.Seeking){
 			RandomizeLookPoint();
+			GetNode<AudioStreamPlayer3D>("SeekSound").Play();
 		}
 		float angle = AngleToTarget(lookPoint);
 		if(angle < 0.1f){
@@ -124,6 +136,9 @@ public partial class Eye : Actor
 		if(CanSeePlayer()) state = EyeState.Attacking;
 	}
 	void Attacking(float dt){
+		if(lastState != EyeState.Attacking){
+			GetNode<AudioStreamPlayer3D>("WakeSound").Play();
+		}
 		LookToTarget(dt, player.Position);
 		Fire();
 		if(!CanSeePlayer()) state = EyeState.Seeking;

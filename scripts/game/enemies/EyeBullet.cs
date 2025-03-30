@@ -12,9 +12,9 @@ public partial class EyeBullet : Entity
 		GetNode<Area3D>("Area3D").BodyEntered += b => {
 			if(b is Actor a){
 				if(a.GetTeam() != GetTeam()){
-                    a.Damage(Damage);
-                    CallDeferred("Die");
-                }
+					a.Damage(Damage);
+					CallDeferred("Die");
+				}
 			}
 			else CallDeferred("Die");
 		};
