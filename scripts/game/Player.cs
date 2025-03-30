@@ -45,11 +45,15 @@ public partial class Player : Actor
 	Weapon CurrentWeapon = null;
 	MenuSystem menuSystem;
 	AudioStreamPlayer3D jumpSound;
+	AudioStreamPlayer3D dieSound;
+	AudioStreamPlayer3D hurtSound;
 	Control hud;
+	Vector3 respawnPos;
 
 	public override void _Ready()
 	{
 		base._Ready();
+		respawnPos = Position;
 		var temp = GetTree().GetNodesInGroup("MenuSystem");
 		if(temp.Count > 0) {
 			menuSystem = temp[0] as MenuSystem;
@@ -65,6 +69,8 @@ public partial class Player : Actor
 		hudLabel = GetNode<Label>("Camera3D/Hud/Label");
 		hud = GetNode<Control>("Camera3D/Hud");
 		jumpSound = GetNode<AudioStreamPlayer3D>("JumpSound");
+		dieSound = GetNode<AudioStreamPlayer3D>("DieSound");
+		hurtSound = GetNode<AudioStreamPlayer3D>("HurtSound");
 		notification = GetNode<Notification>("Camera3D/Hud/Notification");
 		groundClock = AddClock(coyoteTime, 0);
 		jumpClock = AddClock(jumpBuffer, 0);
@@ -196,8 +202,15 @@ public partial class Player : Actor
 	}
 	public override void Damage(float value)
 	{
-		// base.Damage(value);
-		GD.Print($"Player damaged for {value}");
+		base.Damage(value);
+		if(Health >= 0)hurtSound.Play();
+	}
+	public override void Die()
+	{
+		base.Die();
+		dieSound.Play();
+		Position = respawnPos;
+		Health = 100;
 	}
 	public bool AddPickup(PickupType pickupType){
 		switch (pickupType)
