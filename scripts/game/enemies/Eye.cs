@@ -13,12 +13,16 @@ public partial class Eye : Actor
 	[Export] public EyeState state = EyeState.Idle;
 	[Export] float TurnSpeed = 1;
 	[Export] float BulletSpeed = 30;
+	[Export] float WakeRadius = 100;
+	[Export] float FOV = 0.5f;
 	[Export] PackedScene BulletScene;
 	EyeState lastState = EyeState.Idle;
 	Vector3 lookPoint;
 	Player player;
 	Clock fireClock;
 	EntPool bulletPool;
+	RayCast3D ray;
+	PhysicsDirectSpaceState3D spaceState;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -29,12 +33,15 @@ public partial class Eye : Actor
 		else parent = GetTree().Root;
 		player = GetTree().GetNodesInGroup("Player")[0] as Player;
 		fireClock = AddClock(0.3f);
-		bulletPool = AddPool(parent, ()=>BulletScene.Instantiate<Entity>());
+		bulletPool = AddPool(parent, ()=>BulletScene.Instantiate<Entity>()); 
+		ray = GetNode<RayCast3D>("RayCast3D");
+		ray.TargetPosition = Vector3.Forward * WakeRadius;
 	}
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
 		float dt = (float)delta;
+		spaceState = GetWorld3D().DirectSpaceState;
 		switch (state)
 		{
 			case EyeState.Idle:
@@ -87,6 +94,20 @@ public partial class Eye : Actor
 		bullet.Position = Position;
 		bullet.Velocity = (Transform.Basis * Vector3.Forward).Normalized() * BulletSpeed;
 	}
+	bool CanSeePlayer(){
+		if((player.Position - Position).Length() > WakeRadius) return false;
+		if(AngleToTarget(player.Position) > FOV) return false;
+		// state = EyeState.Attacking;
+		// var spaceState = GetWorld3D().DirectSpaceState;
+		var query = PhysicsRayQueryParameters3D.Create(Position, player.Position);
+		var result = spaceState.IntersectRay(query);
+		if(result.Count == 0) return false;
+		var collider = (GodotObject)result["collider"];
+		if(collider is Actor a && a == player){
+			return true;
+		}
+		return false;
+	}
 	void Idle(float dt){}
 	void Spinning(float dt){
 		Rotate(Vector3.Up, TurnSpeed * dt);
@@ -100,9 +121,11 @@ public partial class Eye : Actor
 			RandomizeLookPoint();
 		}
 		LookToTarget(dt, lookPoint);
+		if(CanSeePlayer()) state = EyeState.Attacking;
 	}
 	void Attacking(float dt){
 		LookToTarget(dt, player.Position);
 		Fire();
+		if(!CanSeePlayer()) state = EyeState.Seeking;
 	}
 }

@@ -24,3 +24,6 @@ shape = SubResource("SphereShape3D_yq7hr")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.21672)
 mesh = SubResource("SphereMesh_ipb26")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -100)
