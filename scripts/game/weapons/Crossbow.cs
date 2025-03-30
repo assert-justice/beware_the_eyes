@@ -4,13 +4,13 @@ public partial class Crossbow : Weapon
 {
 	[Export] float FireTime = 0.5f;
 	[Export] float Damage = 50;
-	[Export] PackedScene SparkleScene;
+	// [Export] PackedScene SparkleScene;
 	[Export] PackedScene SpikeScene;
 	[Export] int Ammo = 6;
 	[Export] int MaxAmmo = 100;
 	Clock fireClock;
 	AudioStreamPlayer3D fireSound;
-	EntPool sparklePool;
+	// EntPool sparklePool;
 	EntPool spikePool;
 	public override void _Ready()
 	{
@@ -21,7 +21,7 @@ public partial class Crossbow : Weapon
 		Node parent; 
 		if(temp.Count > 0) parent = temp[0];
 		else parent = GetTree().Root;
-		sparklePool = AddPool(parent, ()=>SparkleScene.Instantiate<Entity>());
+		// sparklePool = AddPool(parent, ()=>SparkleScene.Instantiate<Entity>());
 		spikePool = AddPool(parent, ()=>SpikeScene.Instantiate<Entity>());
 	}
 	public override string GetAmmoString()
@@ -54,11 +54,9 @@ public partial class Crossbow : Weapon
 		Ammo--;
 		if(command.Ray.IsColliding()){
 			var pos = command.Ray.GetCollisionPoint();
-			var s = sparklePool.GetPool().GetNew();
 			var spike = spikePool.GetPool().GetNew();
 			spike.Position = pos;
 			spike.GlobalRotation = GlobalRotation;
-			s.Position = pos;
 			if(command.Ray.GetCollider() is Actor actor){
 				actor.Damage(Damage);
 			}
