@@ -212,6 +212,10 @@ public partial class Player : Actor
 		Position = respawnPos;
 		Health = 100;
 	}
+	public void SaveState(){
+		notification.AddMessage("Saved!");
+		respawnPos = Position;
+	}
 	public bool AddPickup(PickupType pickupType){
 		switch (pickupType)
 		{
