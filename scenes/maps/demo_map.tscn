@@ -198,4 +198,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77452, -4.76837e-07, -5.432
 
 [node name="Eye" parent="." instance=ExtResource("17_ettu2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5722, 2.36569, 0.196772)
-state = 2
+state = 3

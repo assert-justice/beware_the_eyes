@@ -12,7 +12,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8cj0n"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_3vyb7")
 SparkleScene = ExtResource("2_dqkch")
 

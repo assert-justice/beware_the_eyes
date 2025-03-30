@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1rgtblbvly7i"]
+[gd_scene load_steps=6 format=3 uid="uid://d1rgtblbvly7i"]
 
 [ext_resource type="Script" uid="uid://biw1ak7aqpi45" path="res://scripts/game/enemies/Eye.cs" id="1_ipb26"]
 [ext_resource type="ArrayMesh" uid="uid://twunee4mw7gw" path="res://models/prism.obj" id="2_817ua"]
+[ext_resource type="PackedScene" uid="uid://b6ow6qjkclkyb" path="res://scenes/enemies/eye_bullet.tscn" id="2_sypwk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yq7hr"]
 radius = 1.26178
@@ -11,6 +12,7 @@ radius = 1.26178
 [node name="Eye" type="CharacterBody3D"]
 motion_mode = 1
 script = ExtResource("1_ipb26")
+BulletScene = ExtResource("2_sypwk")
 
 [node name="Prism" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public partial class Entity : Node3D
 {
+	protected int Team = 0;
 	List<Clock> clocks = [];
 	EntPool pool;
-	Vector3 Velocity;
-	int Team = 0;
+	public Vector3 Velocity;
 	public Clock AddClock(float fullDuration, float duration = -1){
 		Clock c = new(fullDuration, duration);
 		clocks.Add(c);
