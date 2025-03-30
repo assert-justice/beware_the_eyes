@@ -14,7 +14,7 @@ public partial class Eye : Actor
 	[Export] float TurnSpeed = 1;
 	[Export] float BulletSpeed = 30;
 	[Export] float WakeRadius = 100;
-	[Export] float FOV = 0.5f;
+	[Export] float FOV = 90;
 	[Export] PackedScene BulletScene;
 	EyeState lastState = EyeState.Idle;
 	Vector3 lookPoint;
@@ -107,9 +107,7 @@ public partial class Eye : Actor
 	}
 	bool CanSeePlayer(){
 		if((player.Position - Position).Length() > WakeRadius) return false;
-		if(AngleToTarget(player.Position) > FOV) return false;
-		// state = EyeState.Attacking;
-		// var spaceState = GetWorld3D().DirectSpaceState;
+		if(AngleToTarget(player.Position) > Mathf.DegToRad(FOV / 2)) return false;
 		var query = PhysicsRayQueryParameters3D.Create(Position, player.Position);
 		var result = spaceState.IntersectRay(query);
 		if(result.Count == 0) return false;
