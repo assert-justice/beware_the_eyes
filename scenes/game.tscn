@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://csvukd1y5q4sf"]
 
-[ext_resource type="PackedScene" uid="uid://cd02tqnmfbhhn" path="res://scenes/maps/demo_map.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://cp6ihxao48g6i" path="res://scenes/maps/vanguard_tower_map.tscn" id="1_uwrxv"]
 
 [node name="Game" type="Node3D" groups=["Game"]]
 
-[node name="DemoMap" parent="." instance=ExtResource("1_uwrxv")]
+[node name="VanguardTowerMap" parent="." instance=ExtResource("1_uwrxv")]

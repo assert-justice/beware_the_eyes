@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://0f1nq4yk2sn2"
+path="res://.godot/imported/vanguard_tower.1.map-36e6d952ebc3a376b8aecea9f1f8d839.tres"
+
+[deps]
+
+source_file="res://maps/autosave/vanguard_tower.1.map"
+dest_files=["res://.godot/imported/vanguard_tower.1.map-36e6d952ebc3a376b8aecea9f1f8d839.tres"]
+
+[params]
+

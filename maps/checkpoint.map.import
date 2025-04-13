@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bileoq70c124j"
+path="res://.godot/imported/checkpoint.map-cd177aacee20dd1641f0a88b0db26aaa.tres"
+
+[deps]
+
+source_file="res://maps/checkpoint.map"
+dest_files=["res://.godot/imported/checkpoint.map-cd177aacee20dd1641f0a88b0db26aaa.tres"]
+
+[params]
+

@@ -10,8 +10,8 @@ public partial class Spike : Entity
 		lifetime = AddClock(10);
 		lifetime.Timeout = Die;
 	}
-    public override void Die()
-    {
+	public override void Die()
+	{
 		QueueFree();
-    }
+	}
 }

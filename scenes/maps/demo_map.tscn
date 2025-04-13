@@ -208,4 +208,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5722, 2.36569, 0.196772)
 state = 2
 
 [node name="Respawn" parent="." instance=ExtResource("18_bpj7q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.71755, 0.998445, 5.24312)
+transform = Transform3D(-0.789802, 0, -0.613362, 0, 1, 0, 0.613362, 0, -0.789802, -5.71755, 0.998445, 5.24312)
