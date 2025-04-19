@@ -49,6 +49,7 @@ public partial class Player : Actor
 	AudioStreamPlayer3D hurtSound;
 	Control hud;
 	Vector3 respawnPos;
+	SpotLight3D flashlight;
 
 	public override void _Ready()
 	{
@@ -68,6 +69,7 @@ public partial class Player : Actor
 		}
 		hudLabel = GetNode<Label>("Camera3D/Hud/Label");
 		hud = GetNode<Control>("Camera3D/Hud");
+		flashlight = GetNode<SpotLight3D>("Camera3D/SpotLight3D");
 		jumpSound = GetNode<AudioStreamPlayer3D>("JumpSound");
 		dieSound = GetNode<AudioStreamPlayer3D>("DieSound");
 		hurtSound = GetNode<AudioStreamPlayer3D>("HurtSound");
@@ -108,6 +110,9 @@ public partial class Player : Actor
 			jetPackFuel = maxJetPackFuel;
 		}
 		playerInput.Poll();
+		if(playerInput.FlashlightJustPressed()){
+			flashlight.Visible = !flashlight.Visible;
+		}
 		var weaponSelected = playerInput.GetWeaponMask();
 		for (int i = 0; i < weaponSelected.Length; i++)
 		{

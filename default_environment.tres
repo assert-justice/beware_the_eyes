@@ -2,4 +2,4 @@
 
 [resource]
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 11.06
+ambient_light_energy = 16.0
