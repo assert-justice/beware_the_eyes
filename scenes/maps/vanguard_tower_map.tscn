@@ -398,7 +398,7 @@ shape = SubResource("ConvexPolygonShape3D_fea78")
 shape = SubResource("ConvexPolygonShape3D_bkrtg")
 
 [node name="Player" parent="." instance=ExtResource("4_2x1qr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000692844, 4.8049, 0.556853)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000692844, 4.8049, 16.8571)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.794764, -0.30027, 0.527435, 0, 0.869038, 0.494746, -0.606918, -0.393206, 0.69068, 0, 2.08961, 7.88505)
