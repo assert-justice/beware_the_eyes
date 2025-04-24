@@ -6,6 +6,8 @@ public class FireCommand{
     public bool FireJustPressed;
     public bool AltPressed;
     public bool AltJustPressed;
+    public bool MeleePressed;
+    public bool MeleeJustPressed;
     public Player Player;
     public float dt;
 }

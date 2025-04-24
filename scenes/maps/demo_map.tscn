@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://cd02tqnmfbhhn"]
+[gd_scene load_steps=38 format=4 uid="uid://cd02tqnmfbhhn"]
 
 [ext_resource type="Script" uid="uid://d1riv8ior488h" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_nflrl"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_qxalk"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bwrlxkg6wv4q4" path="res://scenes/pickups/zapper_ammo_pickup.tscn" id="16_46apc"]
 [ext_resource type="PackedScene" uid="uid://d1rgtblbvly7i" path="res://scenes/enemies/eye.tscn" id="17_ettu2"]
 [ext_resource type="PackedScene" uid="uid://bwko3p4dw7vwp" path="res://scenes/respawn.tscn" id="18_bpj7q"]
+[ext_resource type="PackedScene" uid="uid://citmw6delc0dp" path="res://scenes/pickups/axe_pickup.tscn" id="19_xfuv8"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ettu2"]
 _surfaces = [{
@@ -209,3 +210,6 @@ state = 2
 
 [node name="Respawn" parent="." instance=ExtResource("18_bpj7q")]
 transform = Transform3D(-0.789802, 0, -0.613362, 0, 1, 0, 0.613362, 0, -0.789802, -5.71755, 0.998445, 5.24312)
+
+[node name="AxePickup" parent="." instance=ExtResource("19_xfuv8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12759, 0.640001, -1.85827)

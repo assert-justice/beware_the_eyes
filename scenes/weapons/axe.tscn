@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b44dtcoodqj82"]
+
+[ext_resource type="ArrayMesh" uid="uid://s3bmfmn5bws7" path="res://models/axe.obj" id="1_sxbk6"]
+[ext_resource type="Script" uid="uid://c4yjj4yuqf8dx" path="res://scripts/game/weapons/Axe.cs" id="1_w43rl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sxbk6"]
+size = Vector3(0.0197266, 0.129956, 0.0631836)
+
+[node name="Axe" type="Node3D"]
+script = ExtResource("1_w43rl")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="Pivot"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00257922, 0.000268618, -0.158783)
+shape = SubResource("BoxShape3D_sxbk6")
+
+[node name="Axe" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-4.37114e-11, 0, 0.001, 0, 0.001, 0, -0.001, 0, -4.37114e-11, 0, 0, -0.111157)
+layers = 2
+mesh = ExtResource("1_sxbk6")
+skeleton = NodePath("../..")

@@ -50,6 +50,8 @@ public partial class Player : Actor
 	Control hud;
 	Vector3 respawnPos;
 	SpotLight3D flashlight;
+	Axe axe;
+	bool hasAxe = false;
 
 	public override void _Ready()
 	{
@@ -70,6 +72,7 @@ public partial class Player : Actor
 		hudLabel = GetNode<Label>("Camera3D/Hud/Label");
 		hud = GetNode<Control>("Camera3D/Hud");
 		flashlight = GetNode<SpotLight3D>("Camera3D/SpotLight3D");
+		axe = GetNode<Axe>("Camera3D/Axe");
 		jumpSound = GetNode<AudioStreamPlayer3D>("JumpSound");
 		dieSound = GetNode<AudioStreamPlayer3D>("DieSound");
 		hurtSound = GetNode<AudioStreamPlayer3D>("HurtSound");
@@ -127,10 +130,13 @@ public partial class Player : Actor
 			FireJustPressed = playerInput.FireJustPressed(),
 			AltPressed = playerInput.AltPressed(),
 			AltJustPressed = playerInput.AltJustPressed(),
+			MeleePressed = playerInput.MeleePressed(),
+			MeleeJustPressed = playerInput.MeleeJustPressed(),
 			Player = this,
 			dt = dt,
 		};
 		CurrentWeapon?.TryFire(command);
+		if(hasAxe) axe.TryFire(command);
 		if(playerInput.JumpJustPressed()) jumpClock.Reset();
 		if(playerInput.PauseJustPressed()){
 			if(menuSystem != null) {
@@ -269,6 +275,7 @@ public partial class Player : Actor
 			break;
 			case PickupType.Axe:
 			notification.AddMessage("Axe Acquired!");
+			hasAxe = true;
 			break;
 			default:
 			GD.PrintErr("Unhandled pickup type!");
